@@ -26,35 +26,38 @@ export class Service {
   @ManyToOne(
     () => BusinessAdministrator,
     (businessAdministrator) => businessAdministrator.services,
+    {
+      onDelete: 'CASCADE',
+    },
   )
   businessAdministrator: BusinessAdministrator;
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
   })
   bookable_duration_in_minutes: Number;
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
     default: 0,
   })
   break_between_slots_in_minutes: Number;
 
   @Column({
     type: 'bigint',
-    unique: true,
+    unsigned: true,
     default: Config.DEFAULT_FUTURE_BOOKABLE_DAYS,
   })
-  future_bookable_days: String;
+  future_bookable_days: Number;
 
   @Column({
     type: 'bigint',
-    unique: true,
+    unsigned: true,
     default: 1,
   })
-  bookable_appointments_per_slot_count: String;
+  bookable_appointments_per_slot_count: Number;
 
   @OneToMany(
     () => BookableCalender,

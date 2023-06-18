@@ -25,14 +25,16 @@ export class Appointment {
   @Column({
     type: 'timestamp',
   })
-  start_date: Date;
+  start_date: String;
 
   @Column({
     type: 'timestamp',
   })
-  end_date: Date;
+  end_date: String;
 
-  @ManyToOne(() => Service, (service) => service.appointments)
+  @ManyToOne(() => Service, (service) => service.appointments, {
+    onDelete: 'CASCADE',
+  })
   service: Service;
 
   @CreateDateColumn({

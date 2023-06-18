@@ -1,5 +1,3 @@
-import Config from 'src/config';
-import { BusinessAdministrator } from '../business_administrator/business_administrators.entity';
 import {
   Entity,
   Column,
@@ -17,20 +15,20 @@ export class BookableCalender {
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
   })
   day: Number;
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
     nullable: true,
   })
   opening_hour_in_minutes: Number;
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
     nullable: true,
   })
   closing_hour_in_minutes: Number;
@@ -41,7 +39,9 @@ export class BookableCalender {
   })
   available: Boolean;
 
-  @ManyToOne(() => Service, (service) => service.bookableCalenders)
+  @ManyToOne(() => Service, (service) => service.bookableCalenders, {
+    onDelete: 'CASCADE',
+  })
   service: Service;
 
   @CreateDateColumn({

@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -17,14 +16,16 @@ export class PlannedOff {
   @Column({
     type: 'timestamp',
   })
-  start_date: Date;
+  start_date: String;
 
   @Column({
     type: 'timestamp',
   })
-  end_date: Date;
+  end_date: String;
 
-  @ManyToOne(() => Service, (service) => service.plannedOffs)
+  @ManyToOne(() => Service, (service) => service.plannedOffs, {
+    onDelete: 'CASCADE',
+  })
   service: Service;
 
   @CreateDateColumn({

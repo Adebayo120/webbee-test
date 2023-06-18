@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -19,17 +18,19 @@ export class ConfiguredBreak {
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
   })
   start_hour_in_minutes: Number;
 
   @Column({
     type: 'int',
-    unique: true,
+    unsigned: true,
   })
   end_hour_in_minutes: Number;
 
-  @ManyToOne(() => Service, (service) => service.configuredBreaks)
+  @ManyToOne(() => Service, (service) => service.configuredBreaks, {
+    onDelete: 'CASCADE',
+  })
   service: Service;
 
   @CreateDateColumn({
