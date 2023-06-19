@@ -2,7 +2,7 @@ import { Seeder } from 'typeorm-extension';
 import { DataSource, In } from 'typeorm';
 import { Service } from 'src/service/service.entity';
 import * as moment from 'moment';
-import { PlannedOff } from 'src/planned_off/planned_off.entity';
+import { PlannedOff } from 'src/planned-off/planned-off.entity';
 
 interface PlannedOffInsertFields {
   start_date: String;

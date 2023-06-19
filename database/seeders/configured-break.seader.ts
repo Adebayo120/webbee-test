@@ -1,7 +1,7 @@
 import { Seeder } from 'typeorm-extension';
 import { DataSource, In } from 'typeorm';
 import { Service } from 'src/service/service.entity';
-import { ConfiguredBreak } from 'src/configured_break/configured_breaks.entity';
+import { ConfiguredBreak } from 'src/configured-break/configured-breaks.entity';
 
 interface ConfiguredBreakInsertFields {
   name: string;

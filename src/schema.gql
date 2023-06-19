@@ -1,0 +1,19 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Slot {
+  id: Int!
+  name: String!
+  type: String
+}
+
+type Query {
+  availableSlots(getAvailableSlotsInput: GetAvailableSlotsInput!): [Slot!]!
+}
+
+input GetAvailableSlotsInput {
+  serviceId: Int!
+  start_date_in_unix_timestamp: Int!
+  end_date_in_unix_timestamp: Int!
+}

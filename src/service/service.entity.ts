@@ -1,5 +1,5 @@
 import Config from 'src/config';
-import { BusinessAdministrator } from './../business_administrator/business_administrators.entity';
+import { BusinessAdministrator } from '../business-administrator/business-administrators.entity';
 import {
   Entity,
   Column,
@@ -10,9 +10,9 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { BookableCalender } from 'src/bookable_calender/bookable_calender.entity';
-import { ConfiguredBreak } from 'src/configured_break/configured_breaks.entity';
-import { PlannedOff } from 'src/planned_off/planned_off.entity';
+import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
+import { ConfiguredBreak } from 'src/configured-break/configured-breaks.entity';
+import { PlannedOff } from 'src/planned-off/planned-off.entity';
 import { Appointment } from 'src/appointment/appointment.entity';
 
 @Entity()
