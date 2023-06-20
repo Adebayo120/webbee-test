@@ -20,13 +20,13 @@ export class ConfiguredBreak {
     type: 'int',
     unsigned: true,
   })
-  start_hour_in_minutes: Number;
+  start_hour_in_minutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
   })
-  end_hour_in_minutes: Number;
+  end_hour_in_minutes: number;
 
   @ManyToOne(() => Service, (service) => service.configuredBreaks, {
     onDelete: 'CASCADE',

@@ -8,10 +8,9 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { ConfiguredBreak } from 'src/configured-break/configured-breaks.entity';
+import { ConfiguredBreak } from 'src/configured-break/configured-break.entity';
 import { PlannedOff } from 'src/planned-off/planned-off.entity';
 import { Appointment } from 'src/appointment/appointment.entity';
 
@@ -36,28 +35,28 @@ export class Service {
     type: 'int',
     unsigned: true,
   })
-  bookable_duration_in_minutes: Number;
+  bookable_duration_in_minutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
     default: 0,
   })
-  break_between_slots_in_minutes: Number;
+  break_between_slots_in_minutes: number;
 
   @Column({
     type: 'bigint',
     unsigned: true,
     default: Config.DEFAULT_FUTURE_BOOKABLE_DAYS,
   })
-  future_bookable_days: Number;
+  future_bookable_days: number;
 
   @Column({
     type: 'bigint',
     unsigned: true,
     default: 1,
   })
-  bookable_appointments_per_slot_count: Number;
+  bookable_appointments_per_slot_count: number;
 
   @OneToMany(
     () => BookableCalender,

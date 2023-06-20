@@ -2,14 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Slot {
+type AvailableSlot {
   id: Int!
   name: String!
   type: String
 }
 
 type Query {
-  availableSlots(getAvailableSlotsInput: GetAvailableSlotsInput!): [Slot!]!
+  availableSlots(getAvailableSlotsInput: GetAvailableSlotsInput!): [AvailableSlot!]!
 }
 
 input GetAvailableSlotsInput {

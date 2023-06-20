@@ -1,12 +1,12 @@
 import { Seeder } from 'typeorm-extension';
 import { DataSource, In } from 'typeorm';
 import { Service } from 'src/service/service.entity';
-import { ConfiguredBreak } from 'src/configured-break/configured-breaks.entity';
+import { ConfiguredBreak } from 'src/configured-break/configured-break.entity';
 
 interface ConfiguredBreakInsertFields {
   name: string;
-  start_hour_in_minutes: Number;
-  end_hour_in_minutes: Number;
+  start_hour_in_minutes: number;
+  end_hour_in_minutes: number;
   service: Service;
 }
 

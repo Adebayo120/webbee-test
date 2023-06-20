@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class Slot {
+export class AvailableSlot {
   @Field((type) => Int)
   id: number;
 
