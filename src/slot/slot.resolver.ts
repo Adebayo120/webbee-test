@@ -1,17 +1,17 @@
 import { GetAvailableSlotsInput } from './dtos/get-available-slots.input';
-import { AvailableSlot } from './available-slot.entity';
+import { SlotType } from './object-types/slot.type';
 import { SlotService } from './slot.service';
 import { Resolver, Query, Args } from '@nestjs/graphql';
 
-@Resolver((of) => AvailableSlot)
+@Resolver((of) => SlotType)
 export class SlotResolver {
   constructor(private slotService: SlotService) {}
 
-  @Query((returns) => [AvailableSlot])
+  @Query((returns) => SlotType)
   availableSlots(
     @Args('getAvailableSlotsInput')
     getAvailableSlotsInput: GetAvailableSlotsInput,
-  ): Promise<AvailableSlot[]> {
+  ): Promise<SlotType> {
     return this.slotService.availableSlots(getAvailableSlotsInput);
   }
 }

@@ -2,18 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AvailableSlot {
+type Appointment {
   id: Int!
-  name: String!
-  type: String
+}
+
+type AvailableSlot {
+  startDate: String!
+  bookableAppointmentsCount: Int!
+}
+
+type Slot {
+  availableDates: [String!]!
+  bookableDurationInMinutes: Int!
+  availableSlots: [AvailableSlot!]!
 }
 
 type Query {
-  availableSlots(getAvailableSlotsInput: GetAvailableSlotsInput!): [AvailableSlot!]!
+  availableSlots(getAvailableSlotsInput: GetAvailableSlotsInput!): Slot!
 }
 
 input GetAvailableSlotsInput {
   serviceId: Int!
-  start_date_in_unix_timestamp: Int!
-  end_date_in_unix_timestamp: Int!
+  startDateInUnixTimestamp: Int!
+  endDateInUnixTimestamp: Int!
+}
+
+type Mutation {
+  bookAppointment(bookAppointmentInput: BookAppointmentInput!): Appointment!
+}
+
+input BookAppointmentInput {
+  serviceId: Int!
+  profiles: [ProfileInput!]!
+  startDateInUnixTimestamp: Int!
+}
+
+input ProfileInput {
+  firstName: String!
+  lastName: String!
+  email: String!
 }

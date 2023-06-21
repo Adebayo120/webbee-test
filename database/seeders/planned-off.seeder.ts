@@ -29,8 +29,8 @@ export default class PlannedOffSeeder implements Seeder {
   private getData(service: Service): PlannedOffInsertFields[] {
     return [
       {
-        start_date: moment().add(3, 'd').startOf('d').format(),
-        end_date: moment().add(3, 'd').endOf('d').format(),
+        start_date: moment().add(3, 'day').startOf('day').format(),
+        end_date: moment().add(3, 'day').endOf('day').format(),
         service,
       },
     ];

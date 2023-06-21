@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Service } from 'src/service/service.entity';
 import {
   Entity,
@@ -9,7 +10,9 @@ import {
 } from 'typeorm';
 
 @Entity()
+@ObjectType()
 export class Appointment {
+  @Field((type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,12 +28,12 @@ export class Appointment {
   @Column({
     type: 'timestamp',
   })
-  start_date: String;
+  start_date: string;
 
   @Column({
     type: 'timestamp',
   })
-  end_date: String;
+  end_date: string;
 
   @ManyToOne(() => Service, (service) => service.appointments, {
     onDelete: 'CASCADE',

@@ -13,6 +13,7 @@ import { SlotModule } from './slot/slot.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { join } from 'path';
     PlannedOffModule,
     AppointmentModule,
     SlotModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

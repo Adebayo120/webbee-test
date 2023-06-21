@@ -16,12 +16,12 @@ export class PlannedOff {
   @Column({
     type: 'timestamp',
   })
-  start_date: String;
+  start_date: string;
 
   @Column({
     type: 'timestamp',
   })
-  end_date: String;
+  end_date: string;
 
   @ManyToOne(() => Service, (service) => service.plannedOffs, {
     onDelete: 'CASCADE',

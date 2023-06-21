@@ -17,27 +17,27 @@ export class BookableCalender {
     type: 'int',
     unsigned: true,
   })
-  day: Number;
+  day: number;
 
   @Column({
     type: 'int',
     unsigned: true,
     nullable: true,
   })
-  opening_hour_in_minutes: Number;
+  opening_hour_in_minutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
     nullable: true,
   })
-  closing_hour_in_minutes: Number;
+  closing_hour_in_minutes: number;
 
   @Column({
     type: 'bool',
     default: true,
   })
-  available: Boolean;
+  available: boolean;
 
   @ManyToOne(() => Service, (service) => service.bookableCalenders, {
     onDelete: 'CASCADE',

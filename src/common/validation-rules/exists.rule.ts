@@ -9,7 +9,7 @@ import dataSource from 'database/data-source';
 
 @ValidatorConstraint({ name: 'Exists', async: true })
 export class ExistsRule implements ValidatorConstraintInterface {
-  async validate(id: number, args: ValidationArguments) {
+  async validate(id: number, args: ValidationArguments): Promise<boolean> {
     const column =
       args.constraints[1] !== undefined ? args.constraints[1] : args.property;
 

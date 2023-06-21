@@ -8,7 +8,7 @@ import {
 
 @ValidatorConstraint({ name: 'LessThanOrEqualTo' })
 export class LessThanOrEqualToRule implements ValidatorConstraintInterface {
-  validate(value: number, args: ValidationArguments) {
+  validate(value: number, args: ValidationArguments): boolean {
     const [relatedPropertyName] = args.constraints;
 
     const relatedValue = (args.object as any)[relatedPropertyName];
