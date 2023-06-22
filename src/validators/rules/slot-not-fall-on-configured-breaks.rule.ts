@@ -5,35 +5,35 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { SlotHelper } from 'src/slot/slot.helper';
+import { SlotHelper } from 'src/helpers/slot.helper';
 
-@ValidatorConstraint({ name: 'SlotFallsOnFutureBookableDate' })
-export class SlotFallsOnFutureBookableDateRule
+@ValidatorConstraint({ name: 'SlotNotFallOnConfiguredBreaks' })
+export class SlotNotFallOnConfiguredBreaksRule
   implements ValidatorConstraintInterface
 {
   validate(id: number, { object }: ValidationArguments): boolean {
-    console.log('SlotFallsOnFutureBookableDate');
+    console.log('SlotNotFallOnConfiguredBreaks');
     const slotHelper = object['slotHelper'] as SlotHelper;
 
-    return slotHelper.fallBetweenFutureBookableDate();
+    return !slotHelper.fallBetweenConfiguredBreaks();
   }
 
   defaultMessage() {
-    return `Slot exceeds future bookable date`;
+    return `Slot falls on configured break time`;
   }
 }
 
-export function SlotFallsOnFutureBookableDate(
+export function SlotNotFallOnConfiguredBreaks(
   validationOptions?: ValidationOptions,
 ) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'SlotFallsOnFutureBookableDate',
+      name: 'SlotNotFallOnConfiguredBreaks',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: SlotFallsOnFutureBookableDateRule,
+      validator: SlotNotFallOnConfiguredBreaksRule,
     });
   };
 }

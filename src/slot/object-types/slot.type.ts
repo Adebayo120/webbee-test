@@ -1,14 +1,14 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { AvailableSlotType } from './available-slot.type';
+import { AvailableSlot } from './available-slot.type';
 
 @ObjectType('Slot')
-export class SlotType {
+export class Slot {
   @Field((type) => [String]!)
   availableDates: string[];
 
   @Field((type) => Int)
   bookableDurationInMinutes: number;
 
-  @Field((type) => [AvailableSlotType]!)
-  availableSlots: AvailableSlotType[];
+  @Field((type) => [AvailableSlot]!)
+  availableSlots: AvailableSlot[];
 }

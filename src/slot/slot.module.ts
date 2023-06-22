@@ -4,10 +4,15 @@ import { SlotResolver } from './slot.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Service } from 'src/service/service.entity';
 import { Appointment } from 'src/appointment/appointment.entity';
-import { SlotHelper } from './slot.helper';
+import { HelpersModule } from 'src/helpers/helpers.module';
+import { ValidatorsModule } from 'src/validators/validators.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Service, Appointment])],
-  providers: [SlotService, SlotResolver, SlotHelper],
+  imports: [
+    TypeOrmModule.forFeature([Service, Appointment]),
+    HelpersModule,
+    ValidatorsModule,
+  ],
+  providers: [SlotService, SlotResolver],
 })
 export class SlotModule {}

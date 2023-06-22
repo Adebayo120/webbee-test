@@ -5,35 +5,35 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { SlotHelper } from 'src/slot/slot.helper';
+import { SlotHelper } from 'src/helpers/slot.helper';
 
-@ValidatorConstraint({ name: 'SlotExistsInBookableSlotTime' })
-export class SlotExistsInBookableSlotTimeRule
+@ValidatorConstraint({ name: 'SlotFallsOnFutureBookableDate' })
+export class SlotFallsOnFutureBookableDateRule
   implements ValidatorConstraintInterface
 {
   validate(id: number, { object }: ValidationArguments): boolean {
-    console.log('SlotExistsInBookableSlotTime');
+    console.log('SlotFallsOnFutureBookableDate');
     const slotHelper = object['slotHelper'] as SlotHelper;
 
-    return slotHelper.existsInBookableSlots();
+    return slotHelper.fallBetweenFutureBookableDate();
   }
 
   defaultMessage() {
-    return `Slot does not fall on bookable slot time`;
+    return `Slot exceeds future bookable date`;
   }
 }
 
-export function SlotExistsInBookableSlotTime(
+export function SlotFallsOnFutureBookableDate(
   validationOptions?: ValidationOptions,
 ) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'SlotExistsInBookableSlotTime',
+      name: 'SlotFallsOnFutureBookableDate',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: SlotExistsInBookableSlotTimeRule,
+      validator: SlotFallsOnFutureBookableDateRule,
     });
   };
 }

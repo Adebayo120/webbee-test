@@ -1,23 +1,18 @@
-import { Service } from 'src/service/service.entity';
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { ConfiguredBreakHelper } from 'src/configured-break/configured-break.helper';
-import { SlotHelper } from 'src/slot/slot.helper';
+import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
+import { SlotHelper } from 'src/helpers/slot.helper';
+import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
+
+@Injectable({ scope: Scope.REQUEST })
 export class BookableCalenderHelper {
+  constructor(
+    @Inject(forwardRef(() => SlotHelper)) private slotHelper: SlotHelper,
+    private configuredBreak: ConfiguredBreakHelper,
+  ) {}
+
   private bookableCalender: BookableCalender;
 
-  private service: Service;
-
-  private configuredBreak: ConfiguredBreakHelper;
-
-  private slot: SlotHelper;
-
   private bookableSlotsHoursInMinutes: [number, number][];
-
-  forService(service: Service): this {
-    this.service = service;
-
-    return this;
-  }
 
   forBookableCalender(bookableCalender: BookableCalender): this {
     this.bookableCalender = bookableCalender;
@@ -26,10 +21,6 @@ export class BookableCalenderHelper {
   }
 
   generateCalenderSlotHoursInMinutes(): this {
-    this.configuredBreak = new ConfiguredBreakHelper().forService(this.service);
-
-    this.slot = new SlotHelper().forService(this.service);
-
     this.bookableSlotsHoursInMinutes = [];
 
     this.generateSlotHoursInMinutes(
@@ -39,7 +30,7 @@ export class BookableCalenderHelper {
   }
 
   private generateSlotHoursInMinutes(slotStartHourInMinutes: number): void {
-    const slotEndHourInMinutes = this.slot.getEndHourInMinutes(
+    const slotEndHourInMinutes = this.slotHelper.getEndHourInMinutes(
       slotStartHourInMinutes,
     );
 
@@ -62,7 +53,7 @@ export class BookableCalenderHelper {
     ]);
 
     this.generateSlotHoursInMinutes(
-      this.slot.addBreaksHoursInMinutes(slotEndHourInMinutes),
+      this.slotHelper.addBreaksHoursInMinutes(slotEndHourInMinutes),
     );
   }
 

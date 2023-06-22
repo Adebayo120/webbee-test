@@ -1,7 +1,9 @@
+import { Injectable, Scope } from '@nestjs/common';
 import * as moment from 'moment';
 import { PlannedOff } from 'src/planned-off/planned-off.entity';
 import { Service } from 'src/service/service.entity';
 
+@Injectable({ scope: Scope.REQUEST })
 export class PlannedOffHelper {
   service: Service;
 

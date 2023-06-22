@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { ConfiguredBreak } from './configured-break.entity';
+import { Injectable, Scope } from '@nestjs/common';
+import { ConfiguredBreak } from '../configured-break/configured-break.entity';
 import { Service } from 'src/service/service.entity';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class ConfiguredBreakHelper {
   private break: ConfiguredBreak;
 

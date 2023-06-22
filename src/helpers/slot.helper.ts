@@ -1,34 +1,35 @@
 import * as moment from 'moment';
 import { Appointment } from 'src/appointment/appointment.entity';
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { BookableCalenderHelper } from 'src/bookable-calender/bookable-calender.helper';
-import { ConfiguredBreakHelper } from 'src/configured-break/configured-break.helper';
-import { PlannedOffHelper } from 'src/planned-off/planned-off-helper';
+import { BookableCalenderHelper } from 'src/helpers/bookable-calender.helper';
+import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
+import { PlannedOffHelper } from 'src/helpers/planned-off-helper';
 import { Service } from 'src/service/service.entity';
-import { ServiceHelper } from 'src/service/service.helper';
+import { ServiceHelper } from 'src/helpers/service.helper';
 import { Between, Repository } from 'typeorm';
-import { AvailableSlotType } from './object-types/available-slot.type';
-import { Injectable } from '@nestjs/common';
+import { AvailableSlot } from '../slot/object-types/available-slot.type';
+import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { start } from 'repl';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class SlotHelper {
+  constructor(
+    @InjectRepository(Appointment)
+    private appointmentRepository: Repository<Appointment>,
+    private serviceHelper: ServiceHelper,
+    private configuredBreak: ConfiguredBreakHelper,
+    @Inject(forwardRef(() => BookableCalenderHelper))
+    private bookableCalenderHelper: BookableCalenderHelper,
+    private plannedOffHelper: PlannedOffHelper,
+  ) {}
+
   private startDate = moment().startOf('d');
 
   private endDate: moment.Moment;
 
   private service: Service;
 
-  private serviceHelper: ServiceHelper;
-
-  private configuredBreak: ConfiguredBreakHelper;
-
-  private bookableCalender: BookableCalenderHelper;
-
   private availableBookableCalenders: BookableCalender[];
-
-  private appointmentRepository: Repository<Appointment>;
 
   private bookedAppointments: Appointment[];
 
@@ -40,7 +41,7 @@ export class SlotHelper {
 
   private availableDates: string[] = [];
 
-  private availableSlots: AvailableSlotType[] = [];
+  private availableSlots: AvailableSlot[] = [];
 
   whereBetween(startDate: moment.Moment, endDate: moment.Moment): this {
     this.startDate = startDate;
@@ -57,9 +58,8 @@ export class SlotHelper {
       this.serviceHelper.bookableCalenderForSlotDate(startDate);
 
     if (bookableCalender) {
-      this.bookableCalender = new BookableCalenderHelper().forBookableCalender(
-        bookableCalender,
-      );
+      this.bookableCalenderHelper =
+        this.bookableCalenderHelper.forBookableCalender(bookableCalender);
     }
 
     this.configuredBreak = new ConfiguredBreakHelper().forService(this.service);
@@ -76,9 +76,11 @@ export class SlotHelper {
   forService(service: Service): this {
     this.service = service;
 
-    this.serviceHelper = new ServiceHelper().forService(service);
+    this.serviceHelper = this.serviceHelper.forService(service);
 
-    this.configuredBreak = new ConfiguredBreakHelper().forService(service);
+    this.configuredBreak = this.configuredBreak.forService(service);
+
+    this.plannedOffHelper = this.plannedOffHelper.forService(service);
 
     if (this.endDate === undefined) {
       this.endDate = this.serviceHelper.futureBookableDate();
@@ -112,7 +114,6 @@ export class SlotHelper {
   }
 
   async setBookedAppointmentsBetweenDates(
-    appointmentRepository: Repository<Appointment>,
     startDate?: moment.Moment,
     endDate?: moment.Moment,
   ): Promise<this> {
@@ -120,7 +121,7 @@ export class SlotHelper {
 
     endDate = endDate ? endDate : this.endDate;
 
-    this.bookedAppointments = await appointmentRepository.find({
+    this.bookedAppointments = await this.appointmentRepository.find({
       where: {
         end_date: Between(startDate.format(), endDate.format()),
       },
@@ -137,9 +138,8 @@ export class SlotHelper {
 
   generateAvailableSlots(): this {
     this.availableBookableCalenders.forEach((calender: BookableCalender) => {
-      const bookableCalenderHelper = new BookableCalenderHelper()
-        .forService(this.service)
-        .forBookableCalender(calender);
+      const bookableCalenderHelper =
+        this.bookableCalenderHelper.forBookableCalender(calender);
 
       const bookableSlotsHoursInMinutes = bookableCalenderHelper
         .generateCalenderSlotHoursInMinutes()
@@ -163,7 +163,7 @@ export class SlotHelper {
         this.fallBetweenFutureBookableDate(bookableDate) &&
         bookableDate.isSameOrBefore(this.endDate)
       ) {
-        let availableSlots: AvailableSlotType[] = [];
+        const availableSlots: AvailableSlot[] = [];
 
         bookableSlotsHoursInMinutes.forEach((arrayOfMinutes) => {
           const slotStartDate = bookableDate
@@ -226,10 +226,7 @@ export class SlotHelper {
 
     endDate = endDate ? endDate : this.getEndDate();
 
-    return new PlannedOffHelper()
-      .forService(this.service)
-      .whereBetween(startDate, endDate)
-      .exists();
+    return this.plannedOffHelper.whereBetween(startDate, endDate).exists();
   }
 
   bookedAppointmentsForDate(
@@ -266,7 +263,7 @@ export class SlotHelper {
 
     const startDateDayOfWeek = this.startDate.day();
 
-    let days = [];
+    const days: number[] = [];
     let checkCount = 0;
     while (checkCount <= diff) {
       const index = checkCount + startDateDayOfWeek;
@@ -312,7 +309,7 @@ export class SlotHelper {
     return this.availableDates;
   }
 
-  getAvailableSlots(): AvailableSlotType[] {
+  getAvailableSlots(): AvailableSlot[] {
     return this.availableSlots;
   }
 
@@ -320,13 +317,14 @@ export class SlotHelper {
     return this.startDate.isAfter(moment());
   }
 
-  async isAvailable(additionalAppointmentsCount: number = 0): Promise<boolean> {
+  async isAvailable(additionalAppointmentsCount = 0): Promise<boolean> {
     const bookedAppointments = await this.queryBookedAppointmentsForDates();
 
-    return;
-    this.bookableCalender.isAvailable() &&
+    return (
+      this.bookableCalenderHelper.isAvailable() &&
       this.bookableAppointmentCount(bookedAppointments.length) >=
-        additionalAppointmentsCount;
+        additionalAppointmentsCount
+    );
   }
 
   setAppointmentRepository(
@@ -339,11 +337,11 @@ export class SlotHelper {
 
   existsInBookableCalender(): boolean {
     return (
-      this.bookableCalender.dayIsEqual(this.day) &&
-      this.bookableCalender.openingHourIsLessThanOrEqual(
+      this.bookableCalenderHelper.dayIsEqual(this.day) &&
+      this.bookableCalenderHelper.openingHourIsLessThanOrEqual(
         this.startDateInMinutes,
       ) &&
-      this.bookableCalender.closingHourIsGreaterThanOrEqual(
+      this.bookableCalenderHelper.closingHourIsGreaterThanOrEqual(
         this.endDateInMinutes,
       )
     );
@@ -356,12 +354,12 @@ export class SlotHelper {
   }
 
   existsInBookableSlots(): boolean {
-    const calenderBookableSlotHoursInMinutes = this.bookableCalender
+    const calenderBookableSlotHoursInMinutes = this.bookableCalenderHelper
       .generateCalenderSlotHoursInMinutes()
       .getBookableSlotsHoursInMinutes();
 
     return (
-      this.bookableCalender.dayIsEqual(this.day) &&
+      this.bookableCalenderHelper.dayIsEqual(this.day) &&
       calenderBookableSlotHoursInMinutes.includes([
         this.startDateInMinutes,
         this.endDateInMinutes,

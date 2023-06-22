@@ -5,33 +5,31 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { SlotHelper } from 'src/slot/slot.helper';
+import { SlotHelper } from 'src/helpers/slot.helper';
 
-@ValidatorConstraint({ name: 'SlotNotFallOnPlannedOff' })
-export class SlotNotFallOnPlannedOffRule
-  implements ValidatorConstraintInterface
-{
+@ValidatorConstraint({ name: 'SlotExistsInCalender' })
+export class SlotExistsInCalenderRule implements ValidatorConstraintInterface {
   validate(id: number, { object }: ValidationArguments): boolean {
-    console.log('SlotNotFallOnPlannedOff');
+    console.log('SlotExistsInCalender');
     const slotHelper = object['slotHelper'] as SlotHelper;
-
-    return !slotHelper.fallOnPlannedOffDate();
+    console.log(slotHelper);
+    return slotHelper.existsInBookableCalender();
   }
 
   defaultMessage() {
-    return `Slot falls on planned off date`;
+    return `Slot is not available`;
   }
 }
 
-export function SlotNotFallOnPlannedOff(validationOptions?: ValidationOptions) {
+export function SlotExistsInCalender(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'SlotNotFallOnPlannedOff',
+      name: 'SlotExistsInCalender',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: SlotNotFallOnPlannedOffRule,
+      validator: SlotExistsInCalenderRule,
     });
   };
 }

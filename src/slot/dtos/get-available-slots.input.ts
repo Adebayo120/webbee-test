@@ -1,9 +1,9 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { Exists } from 'src/common/validation-rules/exists.rule';
-import { GreaterThanOrEqualTo } from 'src/common/validation-rules/greater-than-or-equal-to.rule';
-import { LessThanOrEqualTo } from 'src/common/validation-rules/less-than-or-equal-to.rule';
-import { MinDigitLength } from 'src/common/validation-rules/min-digit-length.rule';
+import { Exists } from 'src/validators/rules/exists.rule';
 import { Service } from 'src/service/service.entity';
+import { MinDigitLength } from 'src/validators/rules/min-digit-length.rule';
+import { LessThanOrEqualTo } from 'src/validators/rules/less-than-or-equal-to.rule';
+import { GreaterThanOrEqualTo } from 'src/validators/rules/greater-than-or-equal-to.rule';
 @InputType()
 export class GetAvailableSlotsInput {
   @Exists(Service, 'id')

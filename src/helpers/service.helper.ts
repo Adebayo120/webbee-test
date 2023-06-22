@@ -1,9 +1,9 @@
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import * as moment from 'moment';
-import { Service } from './service.entity';
+import { Service } from '../service/service.entity';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class ServiceHelper {
   private service: Service;
 

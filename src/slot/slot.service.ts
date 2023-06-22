@@ -4,22 +4,20 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Service } from 'src/service/service.entity';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
-import { SlotHelper } from './slot.helper';
-import { Appointment } from 'src/appointment/appointment.entity';
-import { SlotType } from './object-types/slot.type';
+import { Slot } from './object-types/slot.type';
+import { SlotHelper } from 'src/helpers/slot.helper';
 
 @Injectable()
 export class SlotService {
   constructor(
     @InjectRepository(Service)
     private serviceRepository: Repository<Service>,
-    @InjectRepository(Appointment)
-    private appointmentRepository: Repository<Appointment>,
+    private slotHelper: SlotHelper,
   ) {}
 
   async availableSlots(
     getAvailableSlotsInput: GetAvailableSlotsInput,
-  ): Promise<SlotType> {
+  ): Promise<Slot> {
     const service = await this.serviceRepository.findOne({
       where: {
         id: getAvailableSlotsInput.serviceId,
@@ -39,11 +37,11 @@ export class SlotService {
       .unix(getAvailableSlotsInput.endDateInUnixTimestamp)
       .endOf('day');
 
-    const slotHelper = await new SlotHelper()
+    const slotHelper = await this.slotHelper
       .whereBetween(startDate, endDate)
       .forService(service)
       .forAvailableBookableCalenders()
-      .setBookedAppointmentsBetweenDates(this.appointmentRepository)
+      .setBookedAppointmentsBetweenDates()
       .then((slotHelper: SlotHelper) => slotHelper.generateAvailableSlots());
 
     return {

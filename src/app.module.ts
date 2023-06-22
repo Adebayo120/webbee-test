@@ -8,12 +8,13 @@ import { ServiceModule } from './service/service.module';
 import { BookableCalenderModule } from './bookable-calender/bookable-calender.module';
 import { ConfiguredBreakModule } from './configured-break/configured-break.module';
 import { PlannedOffModule } from './planned-off/planned-off.module';
-import { AppointmentModule } from './appointment/appointment.module';
 import { SlotModule } from './slot/slot.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { CommonModule } from './common/common.module';
+import { HelpersModule } from './helpers/helpers.module';
+import { ValidatorsModule } from './validators/validators.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { CommonModule } from './common/common.module';
     PlannedOffModule,
     AppointmentModule,
     SlotModule,
-    CommonModule,
+    HelpersModule,
+    ValidatorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
