@@ -3,7 +3,7 @@ import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
 import { SlotHelper } from 'src/helpers/slot.helper';
 import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class BookableCalenderHelper {
   constructor(
     @Inject(forwardRef(() => SlotHelper)) private slotHelper: SlotHelper,
@@ -23,10 +23,12 @@ export class BookableCalenderHelper {
   generateCalenderSlotHoursInMinutes(): this {
     this.bookableSlotsHoursInMinutes = [];
 
-    this.generateSlotHoursInMinutes(
-      this.bookableCalender.opening_hour_in_minutes,
-    );
+    this.generateSlotHoursInMinutes(this.bookableCalender.openingHourInMinutes);
     return this;
+  }
+
+  exists(): boolean {
+    return this.bookableCalender !== undefined;
   }
 
   private generateSlotHoursInMinutes(slotStartHourInMinutes: number): void {
@@ -39,7 +41,7 @@ export class BookableCalenderHelper {
       .first();
 
     if (configuredBreak) {
-      this.generateSlotHoursInMinutes(configuredBreak.end_hour_in_minutes);
+      this.generateSlotHoursInMinutes(configuredBreak.endHourInMinutes);
       return;
     }
 
@@ -58,7 +60,7 @@ export class BookableCalenderHelper {
   }
 
   closingHourIsLessThan(hourInMinutes: number): boolean {
-    return this.bookableCalender.closing_hour_in_minutes < hourInMinutes;
+    return this.bookableCalender.closingHourInMinutes < hourInMinutes;
   }
 
   getBookableSlotsHoursInMinutes(): [number, number][] {
@@ -74,10 +76,10 @@ export class BookableCalenderHelper {
   }
 
   openingHourIsLessThanOrEqual(hourInMinutes: number): boolean {
-    return this.bookableCalender.opening_hour_in_minutes <= hourInMinutes;
+    return this.bookableCalender.openingHourInMinutes <= hourInMinutes;
   }
 
   closingHourIsGreaterThanOrEqual(hourInMinutes: number): boolean {
-    return this.bookableCalender.closing_hour_in_minutes >= hourInMinutes;
+    return this.bookableCalender.closingHourInMinutes >= hourInMinutes;
   }
 }

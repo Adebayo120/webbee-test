@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { PlannedOff } from 'src/planned-off/planned-off.entity';
 import { Service } from 'src/service/service.entity';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class PlannedOffHelper {
   service: Service;
 
@@ -53,26 +53,26 @@ export class PlannedOffHelper {
   }
 
   startDateIsEqual(date: moment.Moment): boolean {
-    return date.isSame(this.plannedOff.start_date);
+    return date.isSame(this.plannedOff.startDate);
   }
 
   startDateIsBefore(date: moment.Moment): boolean {
-    return moment(this.plannedOff.start_date).isBefore(date);
+    return moment(this.plannedOff.startDate).isBefore(date);
   }
 
   startDateIsAfter(date: moment.Moment): boolean {
-    return moment(this.plannedOff.start_date).isAfter(date);
+    return moment(this.plannedOff.startDate).isAfter(date);
   }
 
   endDateIsEqual(date: moment.Moment): boolean {
-    return date.isSame(this.plannedOff.end_date);
+    return date.isSame(this.plannedOff.endDate);
   }
 
   endDateIsBefore(date: moment.Moment): boolean {
-    return moment(this.plannedOff.end_date).isBefore(date);
+    return moment(this.plannedOff.endDate).isBefore(date);
   }
 
   endDateIsAfter(date: moment.Moment): boolean {
-    return moment(this.plannedOff.end_date).isAfter(date);
+    return moment(this.plannedOff.endDate).isAfter(date);
   }
 }

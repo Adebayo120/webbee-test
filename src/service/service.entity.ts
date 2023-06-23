@@ -35,28 +35,28 @@ export class Service {
     type: 'int',
     unsigned: true,
   })
-  bookable_duration_in_minutes: number;
+  bookableDurationInMinutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
     default: 0,
   })
-  break_between_slots_in_minutes: number;
+  breakBetweenSlotsInMinutes: number;
 
   @Column({
     type: 'bigint',
     unsigned: true,
     default: Config.DEFAULT_FUTURE_BOOKABLE_DAYS,
   })
-  future_bookable_days: number;
+  futureBookableDays: number;
 
   @Column({
     type: 'bigint',
     unsigned: true,
     default: 1,
   })
-  bookable_appointments_per_slot_count: number;
+  bookableAppointmentsPerSlotCount: number;
 
   @OneToMany(
     () => BookableCalender,
@@ -80,12 +80,12 @@ export class Service {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }

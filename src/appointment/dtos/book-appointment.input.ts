@@ -3,10 +3,9 @@ import { Exists } from 'src/validators/rules/exists.rule';
 import { Service } from 'src/service/service.entity';
 import { ProfileInput } from './profile.input';
 import { ValidateNested } from 'class-validator';
-import { MinDigitLength } from 'src/validators/rules/min-digit-length.rule';
 import { SlotIsValid } from 'src/validators/rules/slot-is-valid.rule';
 import { Type } from 'class-transformer';
-import { SlotIsAfterNow } from 'src/validators/rules/slot-is-after-now.rule';
+import { IsIsoDateString } from 'src/validators/rules/is-iso-string.rule';
 
 @InputType()
 export class BookAppointmentInput {
@@ -19,8 +18,8 @@ export class BookAppointmentInput {
   @Field((type) => [ProfileInput!]!)
   profiles: ProfileInput[];
 
-  @SlotIsAfterNow()
-  @MinDigitLength(10)
-  @Field((type) => Int)
-  startDateInUnixTimestamp: number;
+  @SlotIsValid()
+  @IsIsoDateString()
+  @Field()
+  startDateInUnixTimestamp: string;
 }

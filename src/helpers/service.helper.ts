@@ -3,7 +3,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import * as moment from 'moment';
 import { Service } from '../service/service.entity';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class ServiceHelper {
   private service: Service;
 
@@ -14,11 +14,11 @@ export class ServiceHelper {
   }
 
   futureBookableDate(): moment.Moment {
-    return moment().add(this.service.future_bookable_days, 'day').endOf('day');
+    return moment().add(this.service.futureBookableDays, 'day').endOf('day');
   }
 
   hasFutureBookableDayLimit(): boolean {
-    return !!this.service.future_bookable_days;
+    return !!this.service.futureBookableDays;
   }
 
   futureBookableDateIsSameOrAfter(date: moment.Moment): boolean {
@@ -29,9 +29,7 @@ export class ServiceHelper {
     startDate: moment.Moment,
   ): BookableCalender | null {
     const calenders = this.service.bookableCalenders.filter(
-      (calender: BookableCalender) => {
-        calender.day === startDate.day();
-      },
+      (calender: BookableCalender) => calender.day === startDate.day(),
     );
 
     return calenders.length ? calenders[0] : null;

@@ -16,12 +16,12 @@ export class PlannedOff {
   @Column({
     type: 'timestamp',
   })
-  start_date: string;
+  startDate: string;
 
   @Column({
     type: 'timestamp',
   })
-  end_date: string;
+  endDate: string;
 
   @ManyToOne(() => Service, (service) => service.plannedOffs, {
     onDelete: 'CASCADE',
@@ -32,12 +32,12 @@ export class PlannedOff {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }

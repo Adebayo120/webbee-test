@@ -7,11 +7,11 @@ import { BookAppointmentInput } from './dtos/book-appointment.input';
 export class AppointmentResolver {
   constructor(private appointmentService: AppointmentService) {}
 
-  @Mutation((returns) => Appointment)
+  @Mutation((returns) => [Appointment!]!)
   bookAppointment(
     @Args('bookAppointmentInput')
     bookAppointmentInput: BookAppointmentInput,
-  ): Promise<Appointment> {
+  ): Promise<Appointment[]> {
     return this.appointmentService.bookAppointment(bookAppointmentInput);
   }
 }

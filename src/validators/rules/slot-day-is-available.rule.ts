@@ -1,4 +1,3 @@
-import { SlotHelper } from 'src/helpers/slot.helper';
 import { Injectable } from '@nestjs/common';
 import {
   registerDecorator,
@@ -6,30 +5,31 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
+import { SlotHelper } from 'src/helpers/slot.helper';
 
-@ValidatorConstraint({ name: 'SlotIsAfterNow' })
+@ValidatorConstraint({ name: 'SlotDayIsAvailable' })
 @Injectable()
-export class SlotIsAfterNowRule implements ValidatorConstraintInterface {
+export class SlotDayIsAvailableRule implements ValidatorConstraintInterface {
   constructor(private slotHelper: SlotHelper) {}
 
   validate(): boolean {
-    return this.slotHelper.startDateIsAfterNow();
+    return this.slotHelper.belongsToAnAvailableBookableDay();
   }
 
   defaultMessage() {
-    return `Cannot book past slot date`;
+    return `Selected day is not available`;
   }
 }
 
-export function SlotIsAfterNow(validationOptions?: ValidationOptions) {
+export function SlotDayIsAvailable(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'SlotIsAfterNow',
+      name: 'SlotDayIsAvailable',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: SlotIsAfterNowRule,
+      validator: SlotDayIsAvailableRule,
     });
   };
 }

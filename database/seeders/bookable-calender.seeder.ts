@@ -6,8 +6,8 @@ import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity
 
 interface BookableCalenderInsertFields {
   day: Number;
-  opening_hour_in_minutes: Number;
-  closing_hour_in_minutes: Number;
+  openingHourInMinutes: Number;
+  closingHourInMinutes: Number;
   available: Boolean;
   service: Service;
 }
@@ -32,50 +32,50 @@ export default class BookableCalenderSeeder implements Seeder {
     return [
       {
         day: DaysOfTheWeekEnum.SUNDAY,
-        opening_hour_in_minutes: null,
-        closing_hour_in_minutes: null,
+        openingHourInMinutes: null,
+        closingHourInMinutes: null,
         available: false,
         service,
       },
       {
         day: DaysOfTheWeekEnum.MONDAY,
-        opening_hour_in_minutes: 480,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 480,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },
       {
         day: DaysOfTheWeekEnum.TUESDAY,
-        opening_hour_in_minutes: 480,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 480,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },
       {
         day: DaysOfTheWeekEnum.WEDNESDAY,
-        opening_hour_in_minutes: 480,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 480,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },
       {
         day: DaysOfTheWeekEnum.THURSDAY,
-        opening_hour_in_minutes: 480,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 480,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },
       {
         day: DaysOfTheWeekEnum.FRIDAY,
-        opening_hour_in_minutes: 480,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 480,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },
       {
         day: DaysOfTheWeekEnum.SATURDAY,
-        opening_hour_in_minutes: 600,
-        closing_hour_in_minutes: 1320,
+        openingHourInMinutes: 600,
+        closingHourInMinutes: 1320,
         available: true,
         service,
       },

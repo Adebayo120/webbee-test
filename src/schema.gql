@@ -3,7 +3,11 @@
 # ------------------------------------------------------
 
 type Appointment {
-  id: Int!
+  firstName: String!
+  lastName: String!
+  email: String!
+  startDate: String!
+  endDate: String!
 }
 
 type AvailableSlot {
@@ -28,13 +32,13 @@ input GetAvailableSlotsInput {
 }
 
 type Mutation {
-  bookAppointment(bookAppointmentInput: BookAppointmentInput!): Appointment!
+  bookAppointment(bookAppointmentInput: BookAppointmentInput!): [Appointment!]!
 }
 
 input BookAppointmentInput {
   serviceId: Int!
   profiles: [ProfileInput!]!
-  startDateInUnixTimestamp: Int!
+  startDateInUnixTimestamp: String!
 }
 
 input ProfileInput {

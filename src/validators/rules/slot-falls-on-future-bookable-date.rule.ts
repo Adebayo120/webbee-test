@@ -1,21 +1,21 @@
+import { Injectable } from '@nestjs/common';
 import {
   registerDecorator,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-  ValidationArguments,
 } from 'class-validator';
 import { SlotHelper } from 'src/helpers/slot.helper';
 
 @ValidatorConstraint({ name: 'SlotFallsOnFutureBookableDate' })
+@Injectable()
 export class SlotFallsOnFutureBookableDateRule
   implements ValidatorConstraintInterface
 {
-  validate(id: number, { object }: ValidationArguments): boolean {
-    console.log('SlotFallsOnFutureBookableDate');
-    const slotHelper = object['slotHelper'] as SlotHelper;
+  constructor(private slotHelper: SlotHelper) {}
 
-    return slotHelper.fallBetweenFutureBookableDate();
+  validate(): boolean {
+    return this.slotHelper.fallBetweenFutureBookableDate();
   }
 
   defaultMessage() {

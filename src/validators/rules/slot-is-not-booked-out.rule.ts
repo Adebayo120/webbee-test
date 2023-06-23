@@ -1,37 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import {
   registerDecorator,
+  ValidationArguments,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { SlotHelper } from 'src/helpers/slot.helper';
 
-@ValidatorConstraint({ name: 'SlotNotFallOnPlannedOff' })
+@ValidatorConstraint({ name: 'SlotIsNotBookedOut', async: true })
 @Injectable()
-export class SlotNotFallOnPlannedOffRule
-  implements ValidatorConstraintInterface
-{
+export class SlotIsNotBookedOutRule implements ValidatorConstraintInterface {
   constructor(private slotHelper: SlotHelper) {}
 
-  validate(): boolean {
-    return !this.slotHelper.fallOnPlannedOffDate();
+  async validate(
+    __: number,
+    { object }: ValidationArguments,
+  ): Promise<boolean> {
+    return this.slotHelper.isNotBookedOut(object['profiles'].length);
   }
 
   defaultMessage() {
-    return `Slot falls on planned off date`;
+    return `Slot is booked out`;
   }
 }
 
-export function SlotNotFallOnPlannedOff(validationOptions?: ValidationOptions) {
+export function SlotIsNotBookedOut(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'SlotNotFallOnPlannedOff',
+      name: 'SlotIsNotBookedOut',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: SlotNotFallOnPlannedOffRule,
+      validator: SlotIsNotBookedOutRule,
     });
   };
 }

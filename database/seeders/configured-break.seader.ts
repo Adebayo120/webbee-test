@@ -5,8 +5,8 @@ import { ConfiguredBreak } from 'src/configured-break/configured-break.entity';
 
 interface ConfiguredBreakInsertFields {
   name: string;
-  start_hour_in_minutes: number;
-  end_hour_in_minutes: number;
+  startHourInMinutes: number;
+  endHourInMinutes: number;
   service: Service;
 }
 
@@ -30,14 +30,14 @@ export default class ConfiguredBreakSeeder implements Seeder {
     return [
       {
         name: 'lunch break',
-        start_hour_in_minutes: 720,
-        end_hour_in_minutes: 780,
+        startHourInMinutes: 720,
+        endHourInMinutes: 780,
         service,
       },
       {
         name: 'cleaning break',
-        start_hour_in_minutes: 900,
-        end_hour_in_minutes: 960,
+        startHourInMinutes: 900,
+        endHourInMinutes: 960,
         service,
       },
     ];

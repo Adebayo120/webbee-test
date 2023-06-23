@@ -5,8 +5,8 @@ import * as moment from 'moment';
 import { PlannedOff } from 'src/planned-off/planned-off.entity';
 
 interface PlannedOffInsertFields {
-  start_date: String;
-  end_date: String;
+  startDate: String;
+  endDate: String;
   service: Service;
 }
 
@@ -29,8 +29,8 @@ export default class PlannedOffSeeder implements Seeder {
   private getData(service: Service): PlannedOffInsertFields[] {
     return [
       {
-        start_date: moment().add(3, 'day').startOf('day').format(),
-        end_date: moment().add(3, 'day').endOf('day').format(),
+        startDate: moment().add(3, 'day').startOf('day').format(),
+        endDate: moment().add(3, 'day').endOf('day').format(),
         service,
       },
     ];

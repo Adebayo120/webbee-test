@@ -46,7 +46,7 @@ export class SlotService {
 
     return {
       availableDates: slotHelper.getAvailableDates(),
-      bookableDurationInMinutes: service.bookable_duration_in_minutes,
+      bookableDurationInMinutes: service.bookableDurationInMinutes,
       availableSlots: slotHelper.getAvailableSlots(),
     };
   }

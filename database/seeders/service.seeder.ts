@@ -14,18 +14,18 @@ export default class ServiceSeeder implements Seeder {
       {
         name: 'Men Haircut',
         businessAdministrator: administrator,
-        bookable_duration_in_minutes: 10,
-        break_between_slots_in_minutes: 5,
-        future_bookable_days: 7,
-        bookable_appointments_per_slot_count: 3,
+        bookableDurationInMinutes: 10,
+        breakBetweenSlotsInMinutes: 5,
+        futureBookableDays: 7,
+        bookableAppointmentsPerSlotCount: 3,
       },
       {
         name: 'Women Haircut',
         businessAdministrator: administrator,
-        bookable_duration_in_minutes: 60,
-        break_between_slots_in_minutes: 10,
-        future_bookable_days: 7,
-        bookable_appointments_per_slot_count: 3,
+        bookableDurationInMinutes: 60,
+        breakBetweenSlotsInMinutes: 10,
+        futureBookableDays: 7,
+        bookableAppointmentsPerSlotCount: 3,
       },
     ]);
   }

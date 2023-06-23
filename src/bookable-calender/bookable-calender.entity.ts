@@ -24,14 +24,14 @@ export class BookableCalender {
     unsigned: true,
     nullable: true,
   })
-  opening_hour_in_minutes: number;
+  openingHourInMinutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
     nullable: true,
   })
-  closing_hour_in_minutes: number;
+  closingHourInMinutes: number;
 
   @Column({
     type: 'bool',
@@ -48,12 +48,12 @@ export class BookableCalender {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }

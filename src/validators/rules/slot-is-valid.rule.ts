@@ -6,14 +6,19 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import moment from 'moment';
+import * as moment from 'moment';
 import { SlotHelper } from 'src/helpers/slot.helper';
 import { Service } from 'src/service/service.entity';
 import { Repository } from 'typeorm';
 import { SlotIsAfterNowRule } from './slot-is-after-now.rule';
-import { SlotIsAvailableRule } from './slot-is-available.rule';
+import { SlotIsNotBookedOutRule } from './slot-is-not-booked-out.rule';
 import { ModuleRef } from '@nestjs/core';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { SlotDayIsAvailableRule } from './slot-day-is-available.rule';
+import { SlotTimeIsBookableRule } from './slot-time-is-bookable.rule';
+import { SlotNotFallOnConfiguredBreaksRule } from './slot-not-fall-on-configured-breaks.rule';
+import { SlotNotFallOnPlannedOffRule } from './slot-not-fall-on-planned-off.rule';
+import { SlotIsAmongAvailableSlotsInDayRule } from './slot-is-among-available-slots-in-day.rule';
 
 @ValidatorConstraint({ name: 'SlotIsValid', async: true })
 @Injectable()
@@ -25,14 +30,22 @@ export class SlotIsValidRule implements ValidatorConstraintInterface {
     private slotHelper: SlotHelper,
   ) {}
 
-  async validate(slot: number, args: ValidationArguments): Promise<boolean> {
-    console.log('SlotIsValid');
+  static validators(): (new (...arg) => ValidatorConstraintInterface)[] {
+    return [
+      SlotIsAfterNowRule,
+      SlotDayIsAvailableRule,
+      SlotTimeIsBookableRule,
+      SlotIsNotBookedOutRule,
+      SlotNotFallOnConfiguredBreaksRule,
+      SlotNotFallOnPlannedOffRule,
+      SlotIsAmongAvailableSlotsInDayRule,
+    ];
+  }
 
-    console.log(this.moduleRef.get(SlotHelper));
-
+  async validate(slot: string, args: ValidationArguments): Promise<boolean> {
     const service = await this.serviceRepository.findOne({
       where: {
-        id: 1,
+        id: args.object['serviceId'],
       },
       relations: {
         bookableCalenders: true,
@@ -41,27 +54,19 @@ export class SlotIsValidRule implements ValidatorConstraintInterface {
       },
     });
 
-    // this.slotHelper = this.slotHelper
-    //   .forService(service)
-    //   .forSlot(moment.unix(slot));
+    this.slotHelper = this.slotHelper
+      .forService(service)
+      .forSlot(moment(slot).utc());
 
-    // for (const validator of this.validators()) {
-    //   const validatorInstance = this.moduleRef.get(validator);
-    //   const isValid = await validatorInstance.validate(slot, args);
-    //   if (!isValid) {
-    //     throw new BadRequestException(validatorInstance.defaultMessage());
-    //   }
-    // }
+    for (const validator of SlotIsValidRule.validators()) {
+      const validatorInstance = this.moduleRef.get(validator);
+      const isValid = await validatorInstance.validate(slot, args);
+      if (!isValid) {
+        throw new BadRequestException(validatorInstance.defaultMessage());
+      }
+    }
 
     return true;
-  }
-
-  defaultMessage() {
-    return `Slot exceeds future bookable date`;
-  }
-
-  validators(): (new (...arg) => ValidatorConstraintInterface)[] {
-    return [SlotIsAfterNowRule, SlotIsAvailableRule];
   }
 }
 

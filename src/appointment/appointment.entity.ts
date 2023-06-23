@@ -12,28 +12,32 @@ import {
 @Entity()
 @ObjectType()
 export class Appointment {
-  @Field((type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column()
-  first_name: string;
+  firstName: string;
 
+  @Field()
   @Column()
-  last_name: string;
+  lastName: string;
 
+  @Field()
   @Column()
   email: string;
 
+  @Field()
   @Column({
     type: 'timestamp',
   })
-  start_date: string;
+  startDate: string;
 
+  @Field()
   @Column({
     type: 'timestamp',
   })
-  end_date: string;
+  endDate: string;
 
   @ManyToOne(() => Service, (service) => service.appointments, {
     onDelete: 'CASCADE',
@@ -44,12 +48,12 @@ export class Appointment {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }

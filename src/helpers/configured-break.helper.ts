@@ -2,7 +2,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import { ConfiguredBreak } from '../configured-break/configured-break.entity';
 import { Service } from 'src/service/service.entity';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class ConfiguredBreakHelper {
   private break: ConfiguredBreak;
 
@@ -61,35 +61,35 @@ export class ConfiguredBreakHelper {
   }
 
   startHourInMinutesIsEqual(hourInMinutes: number): boolean {
-    return this.break.start_hour_in_minutes === hourInMinutes;
+    return this.break.startHourInMinutes === hourInMinutes;
   }
 
   startHourInMinutesIsLessThan(hourInMinutes: number): boolean {
-    return this.break.start_hour_in_minutes < hourInMinutes;
+    return this.break.startHourInMinutes < hourInMinutes;
   }
 
   startHourInMinutesIsGreaterThan(hourInMinutes: number): boolean {
-    return this.break.start_hour_in_minutes > hourInMinutes;
+    return this.break.startHourInMinutes > hourInMinutes;
   }
 
   endHourInMinutesIsEqual(hourInMinutes: number): boolean {
-    return this.break.end_hour_in_minutes === hourInMinutes;
+    return this.break.endHourInMinutes === hourInMinutes;
   }
 
   endHourInMinutesIsLessThan(hourInMinutes: number): boolean {
-    return this.break.end_hour_in_minutes < hourInMinutes;
+    return this.break.endHourInMinutes < hourInMinutes;
   }
 
   endHourInMinutesIsGreaterThan(hourInMinutes: number): boolean {
-    return this.break.end_hour_in_minutes > hourInMinutes;
+    return this.break.endHourInMinutes > hourInMinutes;
   }
 
   sumOfHoursInMinutes(): number {
     return this.breaksBetweenHours
       .map(
         (configureBreak) =>
-          configureBreak.end_hour_in_minutes -
-          configureBreak.start_hour_in_minutes,
+          configureBreak.endHourInMinutes -
+          configureBreak.startHourInMinutes,
       )
       .reduce((a, b) => a + b, 0);
   }

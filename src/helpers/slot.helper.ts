@@ -11,7 +11,7 @@ import { AvailableSlot } from '../slot/object-types/available-slot.type';
 import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class SlotHelper {
   constructor(
     @InjectRepository(Appointment)
@@ -53,16 +53,12 @@ export class SlotHelper {
 
   forSlot(startDate: moment.Moment): this {
     this.startDate = startDate;
-
-    const bookableCalender =
-      this.serviceHelper.bookableCalenderForSlotDate(startDate);
+    const bookableCalender = this.serviceHelper.bookableCalenderForSlotDate(startDate);
 
     if (bookableCalender) {
       this.bookableCalenderHelper =
         this.bookableCalenderHelper.forBookableCalender(bookableCalender);
     }
-
-    this.configuredBreak = new ConfiguredBreakHelper().forService(this.service);
 
     this.day = startDate.day();
 
@@ -89,6 +85,10 @@ export class SlotHelper {
     return this;
   }
 
+  getService(): Service {
+    return this.service;
+  }
+
   forAvailableBookableCalenders(): this {
     const daysBetweenStartAndEndDate = this.daysBetweenStartAndEndDate();
 
@@ -108,8 +108,8 @@ export class SlotHelper {
     endDate = endDate ? endDate : this.getEndDate();
 
     return this.appointmentRepository.findBy({
-      start_date: startDate.format(),
-      end_date: endDate.format(),
+      startDate: startDate.format(),
+      endDate: endDate.format(),
     });
   }
 
@@ -123,17 +123,21 @@ export class SlotHelper {
 
     this.bookedAppointments = await this.appointmentRepository.find({
       where: {
-        end_date: Between(startDate.format(), endDate.format()),
+        endDate: Between(startDate.format(), endDate.format()),
       },
     });
 
     return this;
   }
 
+  getStartDate(): moment.Moment {
+    return this.startDate;
+  }
+
   getEndDate(): moment.Moment {
     return this.startDate
       .clone()
-      .add(this.service.bookable_duration_in_minutes, 'm');
+      .add(this.service.bookableDurationInMinutes, 'm');
   }
 
   generateAvailableSlots(): this {
@@ -184,7 +188,7 @@ export class SlotHelper {
           if (
             slotStartDate.isBefore(moment()) ||
             bookedAppointmentsCount >=
-              this.service.bookable_appointments_per_slot_count ||
+              this.service.bookableAppointmentsPerSlotCount ||
             this.fallOnPlannedOffDate(slotStartDate, slotEndDate)
           ) {
             return;
@@ -213,8 +217,7 @@ export class SlotHelper {
 
   bookableAppointmentCount(bookedAppointmentsCount: number): number {
     return (
-      this.service.bookable_appointments_per_slot_count -
-      bookedAppointmentsCount
+      this.service.bookableAppointmentsPerSlotCount - bookedAppointmentsCount
     );
   }
 
@@ -234,8 +237,10 @@ export class SlotHelper {
     endDate: moment.Moment,
   ): Appointment[] {
     return this.bookedAppointments.filter((bookedAppointment: Appointment) => {
-      startDate.isSame(bookedAppointment.start_date) &&
-        endDate.isSame(bookedAppointment.end_date);
+      return (
+        startDate.isSame(bookedAppointment.startDate) &&
+        endDate.isSame(bookedAppointment.endDate)
+      );
     });
   }
 
@@ -281,7 +286,7 @@ export class SlotHelper {
       ? startHourInMinutes
       : this.startDateInMinutes;
 
-    return startHourInMinutes + this.service.bookable_duration_in_minutes;
+    return startHourInMinutes + this.service.bookableDurationInMinutes;
   }
 
   addBreaksHoursInMinutes(hourInMinutes?: number): number {
@@ -294,7 +299,7 @@ export class SlotHelper {
       .sumOfHoursInMinutes();
 
     return sumOfConfiguredBreakHoursInMinutes >
-      this.service.break_between_slots_in_minutes
+      this.service.breakBetweenSlotsInMinutes
       ? hourInMinutes + sumOfConfiguredBreakHoursInMinutes
       : hourPlusBreakBetweenSlot;
   }
@@ -302,7 +307,7 @@ export class SlotHelper {
   addBreakBetweenSlot(hourInMinutes?: number) {
     hourInMinutes = hourInMinutes ? hourInMinutes : this.endDateInMinutes;
 
-    return hourInMinutes + this.service.break_between_slots_in_minutes;
+    return hourInMinutes + this.service.breakBetweenSlotsInMinutes;
   }
 
   getAvailableDates(): string[] {
@@ -317,13 +322,12 @@ export class SlotHelper {
     return this.startDate.isAfter(moment());
   }
 
-  async isAvailable(additionalAppointmentsCount = 0): Promise<boolean> {
+  async isNotBookedOut(additionalAppointmentsCount = 0): Promise<boolean> {
     const bookedAppointments = await this.queryBookedAppointmentsForDates();
 
     return (
-      this.bookableCalenderHelper.isAvailable() &&
       this.bookableAppointmentCount(bookedAppointments.length) >=
-        additionalAppointmentsCount
+      additionalAppointmentsCount
     );
   }
 
@@ -335,9 +339,12 @@ export class SlotHelper {
     return this;
   }
 
-  existsInBookableCalender(): boolean {
+  belongsToAnAvailableBookableDay(): boolean {
+    return this.bookableCalenderHelper.isAvailable();
+  }
+
+  timeIsBookable(): boolean {
     return (
-      this.bookableCalenderHelper.dayIsEqual(this.day) &&
       this.bookableCalenderHelper.openingHourIsLessThanOrEqual(
         this.startDateInMinutes,
       ) &&
@@ -347,23 +354,20 @@ export class SlotHelper {
     );
   }
 
-  fallBetweenConfiguredBreaks(): boolean {
+  fallOnConfiguredBreaks(): boolean {
     return this.configuredBreak
       .whereBetweenHours(this.startDateInMinutes, this.getEndHourInMinutes())
       .exists();
   }
 
-  existsInBookableSlots(): boolean {
+  isAmongAvailableSlotsInDay(): boolean {
     const calenderBookableSlotHoursInMinutes = this.bookableCalenderHelper
       .generateCalenderSlotHoursInMinutes()
-      .getBookableSlotsHoursInMinutes();
+      .getBookableSlotsHoursInMinutes()
+      .map((arrayOfMinutes) => arrayOfMinutes.join(' '));
 
-    return (
-      this.bookableCalenderHelper.dayIsEqual(this.day) &&
-      calenderBookableSlotHoursInMinutes.includes([
-        this.startDateInMinutes,
-        this.endDateInMinutes,
-      ])
+    return calenderBookableSlotHoursInMinutes.includes(
+      `${this.startDateInMinutes} ${this.endDateInMinutes}`,
     );
   }
 }

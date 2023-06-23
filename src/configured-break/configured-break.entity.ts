@@ -20,13 +20,13 @@ export class ConfiguredBreak {
     type: 'int',
     unsigned: true,
   })
-  start_hour_in_minutes: number;
+  startHourInMinutes: number;
 
   @Column({
     type: 'int',
     unsigned: true,
   })
-  end_hour_in_minutes: number;
+  endHourInMinutes: number;
 
   @ManyToOne(() => Service, (service) => service.configuredBreaks, {
     onDelete: 'CASCADE',
@@ -37,12 +37,12 @@ export class ConfiguredBreak {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }
