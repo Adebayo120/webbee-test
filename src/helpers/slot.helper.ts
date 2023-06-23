@@ -53,7 +53,8 @@ export class SlotHelper {
 
   forSlot(startDate: moment.Moment): this {
     this.startDate = startDate;
-    const bookableCalender = this.serviceHelper.bookableCalenderForSlotDate(startDate);
+    const bookableCalender =
+      this.serviceHelper.bookableCalenderForSlotDate(startDate);
 
     if (bookableCalender) {
       this.bookableCalenderHelper =

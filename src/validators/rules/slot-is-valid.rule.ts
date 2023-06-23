@@ -54,9 +54,7 @@ export class SlotIsValidRule implements ValidatorConstraintInterface {
       },
     });
 
-    this.slotHelper = this.slotHelper
-      .forService(service)
-      .forSlot(moment(slot).utc());
+    this.slotHelper = this.slotHelper.forService(service).forSlot(moment(slot));
 
     for (const validator of SlotIsValidRule.validators()) {
       const validatorInstance = this.moduleRef.get(validator);

@@ -27,8 +27,8 @@ type Query {
 
 input GetAvailableSlotsInput {
   serviceId: Int!
-  startDateInUnixTimestamp: Int!
-  endDateInUnixTimestamp: Int!
+  startDate: String!
+  endDate: String!
 }
 
 type Mutation {

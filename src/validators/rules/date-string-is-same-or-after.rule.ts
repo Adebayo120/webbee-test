@@ -5,38 +5,37 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
+import * as moment from 'moment';
 
-@ValidatorConstraint({ name: 'LessThanOrEqualTo' })
-export class LessThanOrEqualToRule implements ValidatorConstraintInterface {
-  validate(value: number, args: ValidationArguments): boolean {
+@ValidatorConstraint({ name: 'DateStringIsSameOrAfter' })
+export class DateStringIsSameOrAfterRule
+  implements ValidatorConstraintInterface
+{
+  validate(value: string, args: ValidationArguments): boolean {
     const [relatedPropertyName] = args.constraints;
 
     const relatedValue = (args.object as any)[relatedPropertyName];
 
-    return (
-      typeof value === 'number' &&
-      typeof relatedValue === 'number' &&
-      value <= relatedValue
-    );
+    return moment(value).isSameOrAfter(relatedValue);
   }
 
   defaultMessage(args: ValidationArguments) {
-    return `$property has to be less than or equal to ${args.constraints[0]}`;
+    return `$property has to be same or after ${args.constraints[0]}`;
   }
 }
 
-export function LessThanOrEqualTo(
+export function DateStringIsSameOrAfter(
   property: string,
   validationOptions?: ValidationOptions,
 ) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'LessThanOrEqualTo',
+      name: 'DateStringIsSameOrAfter',
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [property],
-      validator: LessThanOrEqualToRule,
+      validator: DateStringIsSameOrAfterRule,
     });
   };
 }

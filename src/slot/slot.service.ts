@@ -29,13 +29,13 @@ export class SlotService {
       },
     });
 
-    const startDate: moment.Moment = moment
-      .unix(getAvailableSlotsInput.startDateInUnixTimestamp)
-      .startOf('day');
+    const startDate: moment.Moment = moment(
+      getAvailableSlotsInput.startDate,
+    ).startOf('day');
 
-    const endDate: moment.Moment = moment
-      .unix(getAvailableSlotsInput.endDateInUnixTimestamp)
-      .endOf('day');
+    const endDate: moment.Moment = moment(getAvailableSlotsInput.endDate).endOf(
+      'day',
+    );
 
     const slotHelper = await this.slotHelper
       .whereBetween(startDate, endDate)
