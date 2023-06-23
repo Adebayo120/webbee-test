@@ -88,8 +88,7 @@ export class ConfiguredBreakHelper {
     return this.breaksBetweenHours
       .map(
         (configureBreak) =>
-          configureBreak.endHourInMinutes -
-          configureBreak.startHourInMinutes,
+          configureBreak.endHourInMinutes - configureBreak.startHourInMinutes,
       )
       .reduce((a, b) => a + b, 0);
   }

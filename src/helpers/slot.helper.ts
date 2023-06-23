@@ -3,7 +3,7 @@ import { Appointment } from 'src/appointment/appointment.entity';
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
 import { BookableCalenderHelper } from 'src/helpers/bookable-calender.helper';
 import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
-import { PlannedOffHelper } from 'src/helpers/planned-off-helper';
+import { PlannedOffHelper } from 'src/helpers/planned-off.helper';
 import { Service } from 'src/service/service.entity';
 import { ServiceHelper } from 'src/helpers/service.helper';
 import { Between, Repository } from 'typeorm';
