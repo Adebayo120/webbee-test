@@ -1,4 +1,3 @@
-import Config from 'src/config';
 import { BusinessAdministrator } from '../business-administrator/business-administrators.entity';
 import {
   Entity,
@@ -47,7 +46,7 @@ export class Service {
   @Column({
     type: 'bigint',
     unsigned: true,
-    default: Config.DEFAULT_FUTURE_BOOKABLE_DAYS,
+    default: process.env.DEFAULT_FUTURE_BOOKABLE_DAYS,
   })
   futureBookableDays: number;
 

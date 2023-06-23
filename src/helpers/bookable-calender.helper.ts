@@ -1,7 +1,7 @@
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
 import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
 import { SlotHelper } from 'src/helpers/slot.helper';
-import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 
 @Injectable()
 export class BookableCalenderHelper {
@@ -28,7 +28,7 @@ export class BookableCalenderHelper {
   }
 
   exists(): boolean {
-    return this.bookableCalender !== undefined;
+    return !!this.bookableCalender;
   }
 
   private generateSlotHoursInMinutes(slotStartHourInMinutes: number): void {

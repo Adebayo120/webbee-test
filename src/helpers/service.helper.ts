@@ -1,5 +1,5 @@
 import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { Injectable, Scope } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 import { Service } from '../service/service.entity';
 

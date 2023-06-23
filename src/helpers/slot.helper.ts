@@ -8,7 +8,7 @@ import { Service } from 'src/service/service.entity';
 import { ServiceHelper } from 'src/helpers/service.helper';
 import { Between, Repository } from 'typeorm';
 import { AvailableSlot } from '../slot/object-types/available-slot.type';
-import { Inject, Injectable, Scope, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -79,7 +79,7 @@ export class SlotHelper {
 
     this.plannedOffHelper = this.plannedOffHelper.forService(service);
 
-    if (this.endDate === undefined) {
+    if (this.endDate) {
       this.endDate = this.serviceHelper.futureBookableDate();
     }
 

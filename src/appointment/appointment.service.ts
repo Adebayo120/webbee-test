@@ -1,9 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Appointment } from './appointment.entity';
-import { BookAppointmentInput } from './dtos/book-appointment.input';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { SlotHelper } from 'src/helpers/slot.helper';
+import { ProfileInput } from './dtos/profile.input';
 
 @Injectable()
 export class AppointmentService {
@@ -13,10 +13,8 @@ export class AppointmentService {
     private slotHelper: SlotHelper,
   ) {}
 
-  async bookAppointment(
-    bookAppointmentInput: BookAppointmentInput,
-  ): Promise<Appointment[]> {
-    const appointments = bookAppointmentInput.profiles.map((profile) => {
+  async bookAppointment(profiles: ProfileInput[]): Promise<Appointment[]> {
+    const appointments = profiles.map((profile) => {
       const appointment = new Appointment();
       appointment.firstName = profile.firstName;
       appointment.lastName = profile.lastName;
@@ -24,6 +22,7 @@ export class AppointmentService {
       appointment.service = this.slotHelper.getService();
       appointment.startDate = this.slotHelper.getStartDate().format();
       appointment.endDate = this.slotHelper.getEndDate().format();
+
       return appointment;
     });
 

@@ -1,14 +1,19 @@
-import Config from 'src/config';
+import { ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
+import { config } from 'dotenv';
+
+config();
+
+const configService = new ConfigService();
 
 export const dataSourceOptions: DataSourceOptions & SeederOptions = {
   type: 'mysql',
-  host: Config.DB_HOST,
-  port: Config.DB_PORT,
-  username: Config.DB_USERNAME,
-  password: Config.DB_PASSWORD,
-  database: Config.DB_DATABASE,
+  host: configService.get('DB_HOST'),
+  port: +configService.get('DB_PORT'),
+  username: configService.get('DB_USERNAME'),
+  password: configService.get('DB_PASSWORD'),
+  database: configService.get('DB_DATABASE'),
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/database/migrations/*.js'],
   seeds: ['dist/database/seeders/database.seeder.js'],

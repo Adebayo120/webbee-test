@@ -27,8 +27,8 @@ type Query {
 
 input GetAvailableSlotsInput {
   serviceId: Int!
-  startDate: String!
-  endDate: String!
+  startDateString: String!
+  endDateString: String!
 }
 
 type Mutation {
@@ -38,7 +38,7 @@ type Mutation {
 input BookAppointmentInput {
   serviceId: Int!
   profiles: [ProfileInput!]!
-  startDateInUnixTimestamp: String!
+  startDate: String!
 }
 
 input ProfileInput {

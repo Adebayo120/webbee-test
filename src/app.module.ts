@@ -15,9 +15,11 @@ import { join } from 'path';
 import { HelpersModule } from './helpers/helpers.module';
 import { ValidatorsModule } from './validators/validators.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

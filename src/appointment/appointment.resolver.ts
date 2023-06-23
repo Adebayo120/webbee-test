@@ -12,6 +12,8 @@ export class AppointmentResolver {
     @Args('bookAppointmentInput')
     bookAppointmentInput: BookAppointmentInput,
   ): Promise<Appointment[]> {
-    return this.appointmentService.bookAppointment(bookAppointmentInput);
+    return this.appointmentService.bookAppointment(
+      bookAppointmentInput.profiles,
+    );
   }
 }

@@ -21,5 +21,5 @@ export class BookAppointmentInput {
   @SlotIsValid()
   @IsIsoDateString()
   @Field()
-  startDateInUnixTimestamp: string;
+  startDate: string;
 }
