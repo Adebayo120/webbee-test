@@ -1,3 +1,4 @@
+import { BusinessAdministrator } from '../../src/business-administrator/business-administrators.entity';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import BusinessAdministratorSeeder from './business-administrator.seeder';

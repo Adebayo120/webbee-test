@@ -7,8 +7,8 @@ import {
   ValidationArguments,
 } from 'class-validator';
 import * as moment from 'moment';
-import { SlotHelper } from 'src/helpers/slot.helper';
-import { Service } from 'src/service/service.entity';
+import { SlotHelper } from './../../helpers/slot.helper';
+import { Service } from './../../service/service.entity';
 import { Repository } from 'typeorm';
 import { SlotIsAfterNowRule } from './slot-is-after-now.rule';
 import { SlotIsNotBookedOutRule } from './slot-is-not-booked-out.rule';

@@ -1,7 +1,7 @@
 import { GetAvailableSlotsInput } from './dtos/get-available-slots.input';
 import { Injectable } from '@nestjs/common';
 import { Slot } from './object-types/slot.type';
-import { SlotHelper } from 'src/helpers/slot.helper';
+import { SlotHelper } from './../helpers/slot.helper';
 
 @Injectable()
 export class SlotService {

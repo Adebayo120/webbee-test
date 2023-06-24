@@ -1,7 +1,7 @@
 import { BusinessAdministrator } from '../../src/business-administrator/business-administrators.entity';
 import { Seeder } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { Service } from 'src/service/service.entity';
+import { Service } from '../../src/service/service.entity';
 
 export default class ServiceSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<any> {

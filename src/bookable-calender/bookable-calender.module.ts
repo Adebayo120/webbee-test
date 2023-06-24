@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BookableCalenderHelper } from '../helpers/bookable-calender.helper';
-import { HelpersModule } from 'src/helpers/helpers.module';
+import { HelpersModule } from './../helpers/helpers.module';
 
 @Module({
   providers: [BookableCalenderHelper],

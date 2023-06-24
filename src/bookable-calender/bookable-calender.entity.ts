@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Service } from 'src/service/service.entity';
+import { Service } from './../service/service.entity';
 
 @Entity()
 export class BookableCalender {

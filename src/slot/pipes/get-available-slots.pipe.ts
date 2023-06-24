@@ -2,7 +2,7 @@ import { Injectable, PipeTransform } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GetAvailableSlotsInput } from '../dtos/get-available-slots.input';
-import { Service } from 'src/service/service.entity';
+import { Service } from './../../service/service.entity';
 import * as moment from 'moment';
 
 @Injectable()
@@ -26,9 +26,11 @@ export class GetAvailableSlotsPipe implements PipeTransform {
       },
     });
 
-    const startDate: moment.Moment = moment(data.startDate).startOf('day');
+    const startDate: moment.Moment = moment(data.startDateString).startOf(
+      'day',
+    );
 
-    const endDate: moment.Moment = moment(data.endDate).endOf('day');
+    const endDate: moment.Moment = moment(data.endDateString).endOf('day');
 
     return {
       ...data,

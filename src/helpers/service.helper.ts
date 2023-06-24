@@ -1,4 +1,4 @@
-import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
+import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 import { Service } from '../service/service.entity';

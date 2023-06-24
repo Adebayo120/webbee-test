@@ -5,7 +5,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { SlotHelper } from 'src/helpers/slot.helper';
+import { SlotHelper } from './../../helpers/slot.helper';
 
 @ValidatorConstraint({ name: 'SlotDayIsAvailable' })
 @Injectable()

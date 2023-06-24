@@ -1,11 +1,11 @@
 import * as moment from 'moment';
-import { Appointment } from 'src/appointment/appointment.entity';
-import { BookableCalender } from 'src/bookable-calender/bookable-calender.entity';
-import { BookableCalenderHelper } from 'src/helpers/bookable-calender.helper';
-import { ConfiguredBreakHelper } from 'src/helpers/configured-break.helper';
-import { PlannedOffHelper } from 'src/helpers/planned-off.helper';
-import { Service } from 'src/service/service.entity';
-import { ServiceHelper } from 'src/helpers/service.helper';
+import { Appointment } from './../appointment/appointment.entity';
+import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { BookableCalenderHelper } from './../helpers/bookable-calender.helper';
+import { ConfiguredBreakHelper } from './../helpers/configured-break.helper';
+import { PlannedOffHelper } from './../helpers/planned-off.helper';
+import { Service } from './../service/service.entity';
+import { ServiceHelper } from './../helpers/service.helper';
 import { Between, Repository } from 'typeorm';
 import { AvailableSlot } from '../slot/object-types/available-slot.type';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
@@ -79,10 +79,6 @@ export class SlotHelper {
 
     this.plannedOffHelper = this.plannedOffHelper.forService(service);
 
-    if (this.endDate) {
-      this.endDate = this.serviceHelper.futureBookableDate();
-    }
-
     return this;
   }
 
@@ -142,6 +138,8 @@ export class SlotHelper {
   }
 
   generateAvailableSlots(): this {
+    this.availableSlots = [];
+    this.availableDates = [];
     this.availableBookableCalenders.forEach((calender: BookableCalender) => {
       const bookableCalenderHelper =
         this.bookableCalenderHelper.forBookableCalender(calender);
@@ -261,8 +259,7 @@ export class SlotHelper {
   }
 
   daysBetweenStartAndEndDate(): number[] {
-    const diff = this.endDate.diff(this.startDate, 'days');
-
+    const diff = this.endDate.diff(this.startDate, 'day');
     if (diff >= 6) {
       return [0, 1, 2, 3, 4, 5, 6];
     }
@@ -286,7 +283,6 @@ export class SlotHelper {
     startHourInMinutes = startHourInMinutes
       ? startHourInMinutes
       : this.startDateInMinutes;
-
     return startHourInMinutes + this.service.bookableDurationInMinutes;
   }
 

@@ -3,8 +3,8 @@ import { AppointmentResolver } from './appointment.resolver';
 import { AppointmentService } from './appointment.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Appointment } from './appointment.entity';
-import { ValidatorsModule } from 'src/validators/validators.module';
-import { HelpersModule } from 'src/helpers/helpers.module';
+import { ValidatorsModule } from './../validators/validators.module';
+import { HelpersModule } from './../helpers/helpers.module';
 
 @Module({
   imports: [

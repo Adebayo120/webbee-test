@@ -1,4 +1,4 @@
-import { SlotHelper } from 'src/helpers/slot.helper';
+import { SlotHelper } from './../../helpers/slot.helper';
 import { Injectable } from '@nestjs/common';
 import {
   registerDecorator,

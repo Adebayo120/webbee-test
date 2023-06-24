@@ -17,6 +17,7 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions = {
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/database/migrations/*.js'],
   seeds: ['dist/database/seeders/database.seeder.js'],
+  factories: ['dist/database/factories/business-administrator.factory.js'],
 };
 
 const dataSource = new DataSource(dataSourceOptions);

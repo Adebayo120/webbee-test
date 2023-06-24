@@ -2,7 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Appointment } from './appointment.entity';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { SlotHelper } from 'src/helpers/slot.helper';
+import { SlotHelper } from './../helpers/slot.helper';
 import { ProfileInput } from './dtos/profile.input';
 
 @Injectable()

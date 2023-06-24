@@ -16,6 +16,7 @@ import { HelpersModule } from './helpers/helpers.module';
 import { ValidatorsModule } from './validators/validators.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ConfigModule } from '@nestjs/config';
+import { FactoriesModule } from './factories/factories.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ConfigModule } from '@nestjs/config';
     SlotModule,
     HelpersModule,
     ValidatorsModule,
+    FactoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

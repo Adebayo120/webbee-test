@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfiguredBreakHelper } from './configured-break.helper';
-import { Service } from 'src/service/service.entity';
-import { ConfiguredBreak } from 'src/configured-break/configured-break.entity';
+import { Service } from './../service/service.entity';
+import { ConfiguredBreak } from './../configured-break/configured-break.entity';
 
 const service: Service = {
   id: 1,
