@@ -1,4 +1,3 @@
-import { BusinessAdministrator } from '../business-administrator/business-administrators.entity';
 import { ServiceHelper } from './../helpers/service.helper';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Service } from './../service/service.entity';
@@ -10,37 +9,8 @@ import { Repository } from 'typeorm';
 import { ConfiguredBreakHelper } from './configured-break.helper';
 import { PlannedOffHelper } from './planned-off.helper';
 import { BookableCalenderHelper } from './bookable-calender.helper';
-import { faker } from '@faker-js/faker';
-import { BusinessAdministratorFactory } from '../../database/factories/entities/business-administrator.factory';
-import factory from 'database/factories/factory.helper';
-
-const createService = (): Service => ({
-  id: 1,
-  name: 'Men Haircut',
-  businessAdministrator: {
-    id: 1,
-    name: 'Hair Saloon',
-    services: [],
-  },
-  bookableDurationInMinutes: 30,
-  breakBetweenSlotsInMinutes: 0,
-  futureBookableDays: 7,
-  bookableAppointmentsPerSlotCount: 3,
-  bookableCalenders: [],
-  configuredBreaks: [],
-  appointments: [],
-  plannedOffs: [],
-});
-
-const createAppointment = (): Appointment => ({
-  id: 1,
-  firstName: faker.person.firstName(),
-  lastName: faker.person.lastName(),
-  email: faker.internet.email(),
-  startDate: moment().format(),
-  endDate: moment().add(10, 'm').format(),
-  service: createService(),
-});
+import factory from './../factories/factory.helper';
+import { ServiceFactory } from './../factories/entities/service.factory';
 
 type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 const createMockRepository = <T = any>(): MockRepository<T> => ({
@@ -75,11 +45,7 @@ describe('PlannedOff Helper', () => {
   let service: Service;
 
   beforeEach(async () => {
-    const administrator = factory<BusinessAdministrator>(
-      BusinessAdministratorFactory,
-    );
-    console.log(administrator);
-    service = createService();
+    service = factory<Service>(ServiceFactory).make();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [

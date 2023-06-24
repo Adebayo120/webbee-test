@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Appointment } from './../appointment/appointment.entity';
 import { PlannedOffHelper } from './planned-off.helper';
 import { BookableCalenderHelper } from './bookable-calender.helper';
+import { FactoriesModule } from './../factories/factories.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Appointment])],
+  imports: [TypeOrmModule.forFeature([Appointment]), FactoriesModule],
   providers: [
     SlotHelper,
     ServiceHelper,

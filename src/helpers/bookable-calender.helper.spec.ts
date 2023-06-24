@@ -1,42 +1,18 @@
-import { Service } from './../service/service.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookableCalenderHelper } from './bookable-calender.helper';
 import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
-import { DaysOfTheWeekEnum } from './../bookable-calender/enums/days-of-the-week.enums';
 import { SlotHelper } from './slot.helper';
 import { ConfiguredBreakHelper } from './configured-break.helper';
-
-const createService = (): Service => ({
-  id: 1,
-  name: 'Men Haircut',
-  businessAdministrator: {
-    id: 1,
-    name: 'Hair Saloon',
-    services: [],
-  },
-  bookableDurationInMinutes: 30,
-  breakBetweenSlotsInMinutes: 0,
-  futureBookableDays: 7,
-  bookableAppointmentsPerSlotCount: 3,
-  bookableCalenders: [],
-  configuredBreaks: [],
-  appointments: [],
-  plannedOffs: [],
-});
-
-const createCalender = (): BookableCalender => ({
-  id: 1,
-  day: DaysOfTheWeekEnum.MONDAY,
-  openingHourInMinutes: 480,
-  closingHourInMinutes: 600,
-  available: true,
-  service: createService(),
-});
+import factory from './../factories/factory.helper';
+import { BookableCalenderFactory } from './../factories/entities/bookable-calender.factory';
+import { ServiceFactory } from './../factories/entities/service.factory';
+import { Service } from './../service/service.entity';
 
 type MockSlotHelper = Partial<Record<keyof SlotHelper, jest.Mock>>;
 const createSlotHelper = (): MockSlotHelper => ({
   getEndHourInMinutes: jest.fn(
-    (n: number) => n + createService().bookableDurationInMinutes,
+    (n: number) =>
+      n + factory<Service>(ServiceFactory).make().bookableDurationInMinutes,
   ),
   addBreaksHoursInMinutes: jest.fn((n: number) => n),
 });
@@ -52,13 +28,11 @@ const createConfiguredBreakHelper = (): MockConfiguredBreakHelper => ({
 describe('PlannedOff Helper', () => {
   let helper: BookableCalenderHelper;
   let slotHelper: MockSlotHelper;
-  let service: Service;
   let calender: BookableCalender;
 
   beforeEach(async () => {
     slotHelper = createSlotHelper();
-    service = createService();
-    calender = createCalender();
+    calender = factory<BookableCalender>(BookableCalenderFactory).make();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BookableCalenderHelper,
