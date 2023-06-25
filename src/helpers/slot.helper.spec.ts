@@ -300,7 +300,6 @@ describe('PlannedOff Helper', () => {
         )
       ) {
         expect(availableDates).toHaveLength(0);
-        expect(availableDates).toBe([]);
       } else {
         expect(availableDates).toHaveLength(1);
         expect(availableDates[0]).toBe(moment().format('dddd, MMMM Do YYYY'));
@@ -314,7 +313,6 @@ describe('PlannedOff Helper', () => {
         )
       ) {
         expect(availableSlots).toHaveLength(0);
-        expect(availableSlots).toBe([]);
       } else {
         expect(availableSlots).toHaveLength(1);
         expect(availableSlots[0]).toMatchObject({

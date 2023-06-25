@@ -2,11 +2,11 @@ import { Factory } from './factory.abstract';
 
 const factory = <T>(
   factory: new () => Factory<T>,
-  overides: Partial<T> = {},
+  overrides: Partial<T> = {},
 ): Factory<T> => {
   const factoryInstance = new factory();
 
-  factoryInstance.overides = overides;
+  factoryInstance.overrides = overrides;
 
   return factoryInstance;
 };

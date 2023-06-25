@@ -6,7 +6,7 @@ import { AppointmentFactory } from './../factories/entities/appointment.factory'
 import factory from './../factories/factory.helper';
 import { faker } from '@faker-js/faker';
 import * as moment from 'moment';
-import { SlotvalidatorsPipe } from './../validators/pipes/slotvalidators/slotvalidators.pipe';
+import { SlotValidatorsPipe } from '../validators/pipes/slot-validators/slot-validators.pipe';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Service } from './../service/service.entity';
@@ -41,7 +41,7 @@ describe('AppointmentResolver', () => {
           useValue: createAppointmentService(),
         },
         {
-          provide: SlotvalidatorsPipe,
+          provide: SlotValidatorsPipe,
           useValue: {},
         },
         {

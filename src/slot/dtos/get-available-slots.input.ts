@@ -21,9 +21,9 @@ export class GetAvailableSlotsInput {
   @Field()
   endDateString: string;
 
-  service: Service;
+  service?: Service;
 
-  startDate: moment.Moment;
+  startDate?: moment.Moment;
 
-  endDate: moment.Moment;
+  endDate?: moment.Moment;
 }

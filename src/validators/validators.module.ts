@@ -3,15 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Service } from './../service/service.entity';
 import { HelpersModule } from './../helpers/helpers.module';
 import { ExistsRule } from './rules/exists.rule';
-import { SlotvalidatorsPipe } from './pipes/slotvalidators/slotvalidators.pipe';
+import { SlotValidatorsPipe } from './pipes/slot-validators/slot-validators.pipe';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Service]), HelpersModule],
   providers: [
-    ...SlotvalidatorsPipe.validators(),
+    ...SlotValidatorsPipe.validators(),
     ExistsRule,
-    SlotvalidatorsPipe,
+    SlotValidatorsPipe,
   ],
-  exports: [SlotvalidatorsPipe],
+  exports: [SlotValidatorsPipe],
 })
 export class ValidatorsModule {}
