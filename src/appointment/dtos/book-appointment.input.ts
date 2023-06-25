@@ -3,7 +3,6 @@ import { Exists } from './../../validators/rules/exists.rule';
 import { Service } from './../../service/service.entity';
 import { ProfileInput } from './profile.input';
 import { ValidateNested } from 'class-validator';
-import { SlotIsValid } from './../../validators/rules/slot-is-valid.rule';
 import { Type } from 'class-transformer';
 import { IsIsoDateString } from './../../validators/rules/is-iso-string.rule';
 
@@ -18,7 +17,6 @@ export class BookAppointmentInput {
   @Field((type) => [ProfileInput!]!)
   profiles: ProfileInput[];
 
-  @SlotIsValid()
   @IsIsoDateString()
   @Field()
   startDate: string;

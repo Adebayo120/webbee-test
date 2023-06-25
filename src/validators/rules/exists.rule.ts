@@ -6,18 +6,17 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import dataSource from 'database/data-source';
+import { DataSource } from 'typeorm';
 
 @ValidatorConstraint({ name: 'Exists', async: true })
 @Injectable()
 export class ExistsRule implements ValidatorConstraintInterface {
+  constructor(private dataSource: DataSource) {}
   async validate(id: number, args: ValidationArguments): Promise<boolean> {
     const column =
       args.constraints[1] !== undefined ? args.constraints[1] : args.property;
 
-    !dataSource.isInitialized ? await dataSource.initialize() : null;
-
-    const result = await dataSource
+    const result = await this.dataSource
       .getRepository(args.constraints[0])
       .findOneBy({ [column]: id });
 

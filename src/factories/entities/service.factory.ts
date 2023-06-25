@@ -14,8 +14,8 @@ export class ServiceFactory extends Factory<Service> {
     ).make();
     service.bookableDurationInMinutes = 30;
     service.breakBetweenSlotsInMinutes = 0;
-    service.futureBookableDays = faker.number.int();
-    service.bookableAppointmentsPerSlotCount = faker.number.int();
+    service.futureBookableDays = 7;
+    service.bookableAppointmentsPerSlotCount = 3;
     service.bookableCalenders = [];
     service.configuredBreaks = [];
     service.appointments = [];

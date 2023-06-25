@@ -13,8 +13,10 @@ export class AppointmentFactory extends Factory<Appointment> {
     appointment.lastName = faker.person.lastName();
     appointment.email = faker.internet.email();
     appointment.startDate = moment().format();
-    appointment.endDate = moment().add(10, 'm').format();
     appointment.service = factory<Service>(ServiceFactory).make();
+    appointment.endDate = moment()
+      .add(appointment.service.bookableDurationInMinutes, 'm')
+      .format();
 
     return appointment;
   }
