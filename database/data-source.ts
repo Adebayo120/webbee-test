@@ -3,7 +3,9 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 import { config } from 'dotenv';
 
-config();
+config({
+  path: process.env.NODE_ENV == 'test' ? '.env.test' : '.env',
+});
 
 const configService = new ConfigService();
 
@@ -14,10 +16,9 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions = {
   username: configService.get('DB_USERNAME'),
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_DATABASE'),
-  entities: ['dist/**/*.entity.js'],
-  migrations: ['dist/database/migrations/*.js'],
-  seeds: ['dist/database/seeders/database.seeder.js'],
-  factories: ['dist/database/factories/business-administrator.factory.js'],
+  entities: [configService.get('DB_ENTITIES_PATH')],
+  migrations: [configService.get('DB_MIGRATION_PATH')],
+  seeds: [configService.get('DB_SEEDS_PATH') as string],
 };
 
 const dataSource = new DataSource(dataSourceOptions);

@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { BusinessAdministratorModule } from './business-administrator/business-administrator.module';
-import { dataSourceOptions } from 'database/data-source';
+import { dataSourceOptions } from './../database/data-source';
 import { ServiceModule } from './service/service.module';
 import { BookableCalenderModule } from './bookable-calender/bookable-calender.module';
 import { ConfiguredBreakModule } from './configured-break/configured-break.module';
