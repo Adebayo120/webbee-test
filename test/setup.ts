@@ -1,9 +1,9 @@
-import { TestManager } from './test-manager';
+import { TestManager } from './helpers/test-manager.helper';
 
-global.beforeEach(() => {
+global.beforeAll(() => {
   global.testManager = new TestManager();
 });
 
-global.afterEach(async () => {
-  await global.testManager.afterEach();
+global.afterAll(async () => {
+  await global.testManager.afterAll();
 });

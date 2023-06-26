@@ -1,17 +1,14 @@
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
 import { DataSource } from 'typeorm';
-import { TestManager } from './test-manager';
+import { TestManager } from './helpers/test-manager.helper';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let dataSource: DataSource;
 
   beforeEach(async () => {
-    const testManager: TestManager = await global.testManager.initApp({
-      imports: [AppModule],
-    });
+    const testManager: TestManager = await global.testManager.initApp();
 
     app = testManager.getApp();
 
