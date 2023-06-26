@@ -2,7 +2,7 @@ import { Injectable, PipeTransform } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GetAvailableSlotsInput } from '../dtos/get-available-slots.input';
-import { Service } from './../../service/service.entity';
+import { Service } from '../../service/service.entity';
 import * as moment from 'moment';
 
 @Injectable()

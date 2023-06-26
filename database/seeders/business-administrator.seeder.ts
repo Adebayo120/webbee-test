@@ -1,4 +1,4 @@
-import { BusinessAdministrator } from '../../src/business-administrator/business-administrators.entity';
+import { BusinessAdministrator } from '../../src/modules/business-administrator/business-administrators.entity';
 import { Seeder } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 

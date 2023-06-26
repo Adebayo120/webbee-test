@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppointmentService } from './appointment.service';
-import factory from './../factories/factory.helper';
+import factory from '../../factories/factory.helper';
 import { ProfileInput } from './dtos/profile.input';
-import { ProfileInputFactory } from './../factories/entities/profile-input.factory';
+import { ProfileInputFactory } from '../../factories/entities/profile-input.factory';
 import { Repository } from 'typeorm';
-import { SlotHelper } from './../helpers/slot.helper';
+import { SlotHelper } from '../../helpers/slot.helper';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Appointment } from './appointment.entity';
-import { Service } from './../service/service.entity';
-import { ServiceFactory } from './../factories/entities/service.factory';
+import { Service } from '../service/service.entity';
+import { ServiceFactory } from '../../factories/entities/service.factory';
 import * as moment from 'moment';
 
 type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;

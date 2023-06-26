@@ -1,10 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import gql from 'graphql-tag';
 import request, { SuperTestGraphQL, Variables } from 'supertest-graphql';
-import { Slot } from '../../src/slot/object-types/slot.type';
-import { GetAvailableSlotsInput } from '../../src/slot/dtos/get-available-slots.input';
-import { Appointment } from '../../src/appointment/appointment.entity';
-import { BookAppointmentInput } from '../../src/appointment/dtos/book-appointment.input';
+import { Slot } from '../../src/modules/slot/object-types/slot.type';
+import { GetAvailableSlotsInput } from '../../src/modules/slot/dtos/get-available-slots.input';
+import { Appointment } from '../../src/modules/appointment/appointment.entity';
+import { BookAppointmentInput } from '../../src/modules/appointment/dtos/book-appointment.input';
 
 export class Request {
   app: INestApplication;

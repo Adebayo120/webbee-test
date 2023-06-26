@@ -1,4 +1,4 @@
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { BookableCalender } from '../modules/bookable-calender/bookable-calender.entity';
 import { ConfiguredBreakHelper } from './configured-break.helper';
 import { SlotHelper } from './slot.helper';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';

@@ -1,8 +1,8 @@
 import { Seeder } from 'typeorm-extension';
 import { DataSource, In } from 'typeorm';
-import { Service } from '../../src/service/service.entity';
-import { DaysOfTheWeekEnum } from '../../src/bookable-calender/enums/days-of-the-week.enums';
-import { BookableCalender } from '../../src/bookable-calender/bookable-calender.entity';
+import { Service } from '../../src/modules/service/service.entity';
+import { DaysOfTheWeekEnum } from '../../src/modules/bookable-calender/enums/days-of-the-week.enums';
+import { BookableCalender } from '../../src/modules/bookable-calender/bookable-calender.entity';
 
 interface BookableCalenderInsertFields {
   day: Number;

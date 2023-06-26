@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { BusinessAdministrator } from '../../business-administrator/business-administrators.entity';
+import { BusinessAdministrator } from '../../modules/business-administrator/business-administrators.entity';
 import { Factory } from '../factory.abstract';
 
 export class BusinessAdministratorFactory extends Factory<BusinessAdministrator> {

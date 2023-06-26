@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
-import { PlannedOff } from './../planned-off/planned-off.entity';
-import { Service } from './../service/service.entity';
+import { PlannedOff } from '../modules/planned-off/planned-off.entity';
+import { Service } from '../modules/service/service.entity';
 
 @Injectable()
 export class PlannedOffHelper {

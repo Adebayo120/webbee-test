@@ -1,7 +1,7 @@
-import { PlannedOff } from '../../planned-off/planned-off.entity';
+import { PlannedOff } from '../../modules/planned-off/planned-off.entity';
 import { Factory } from '../factory.abstract';
 import * as moment from 'moment';
-import { Service } from './../../service/service.entity';
+import { Service } from '../../modules/service/service.entity';
 import { ServiceFactory } from './service.factory';
 import factory from '../factory.helper';
 

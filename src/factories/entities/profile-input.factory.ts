@@ -1,5 +1,5 @@
 import { Factory } from '../factory.abstract';
-import { ProfileInput } from './../../appointment/dtos/profile.input';
+import { ProfileInput } from '../../modules/appointment/dtos/profile.input';
 import { faker } from '@faker-js/faker';
 
 export class ProfileInputFactory extends Factory<ProfileInput> {

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookableCalenderHelper } from './bookable-calender.helper';
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { BookableCalender } from '../modules/bookable-calender/bookable-calender.entity';
 import { SlotHelper } from './slot.helper';
 import { ConfiguredBreakHelper } from './configured-break.helper';
 import factory from './../factories/factory.helper';
 import { BookableCalenderFactory } from './../factories/entities/bookable-calender.factory';
 import { ServiceFactory } from './../factories/entities/service.factory';
-import { Service } from './../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 
 type MockSlotHelper = Partial<Record<keyof SlotHelper, jest.Mock>>;
 const createSlotHelper = (): MockSlotHelper => ({

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { Service } from '../../service/service.entity';
+import { Service } from '../../modules/service/service.entity';
 import { Factory } from '../factory.abstract';
-import { BusinessAdministrator } from './../../business-administrator/business-administrators.entity';
+import { BusinessAdministrator } from '../../modules/business-administrator/business-administrators.entity';
 import factory from '../factory.helper';
 import { BusinessAdministratorFactory } from './business-administrator.factory';
 

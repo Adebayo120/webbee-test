@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SlotService } from './slot.service';
-import { SlotHelper } from './../helpers/slot.helper';
+import { SlotHelper } from '../../helpers/slot.helper';
 import { GetAvailableSlotsInput } from './dtos/get-available-slots.input';
-import factory from './../factories/factory.helper';
-import { GetAvailableSlotsInputFactory } from './../factories/entities/get-available-slots-input.factory';
+import factory from '../../factories/factory.helper';
+import { GetAvailableSlotsInputFactory } from '../../factories/entities/get-available-slots-input.factory';
 import { Slot } from './object-types/slot.type';
-import { SlotFactory } from './../factories/entities/slot.factory';
-import { Service } from './../service/service.entity';
-import { ServiceFactory } from './../factories/entities/service.factory';
+import { SlotFactory } from '../../factories/entities/slot.factory';
+import { Service } from '../service/service.entity';
+import { ServiceFactory } from '../../factories/entities/service.factory';
 
 const serviceEntity: Service = factory<Service>(ServiceFactory).make();
 

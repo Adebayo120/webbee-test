@@ -9,7 +9,7 @@ import { SlotIsAfterNowRule } from '../../rules/slot-is-after-now.rule';
 import { SlotIsNotBookedOutRule } from '../../rules/slot-is-not-booked-out.rule';
 import * as moment from 'moment';
 import { SlotHelper } from '../../../helpers/slot.helper';
-import { Service } from '../../../service/service.entity';
+import { Service } from '../../../modules/service/service.entity';
 import { Repository } from 'typeorm';
 import { ModuleRef } from '@nestjs/core';
 import { InjectRepository } from '@nestjs/typeorm';

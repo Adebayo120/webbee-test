@@ -6,10 +6,10 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
-import { ConfiguredBreak } from './../configured-break/configured-break.entity';
-import { PlannedOff } from './../planned-off/planned-off.entity';
-import { Appointment } from './../appointment/appointment.entity';
+import { BookableCalender } from '../bookable-calender/bookable-calender.entity';
+import { ConfiguredBreak } from '../configured-break/configured-break.entity';
+import { PlannedOff } from '../planned-off/planned-off.entity';
+import { Appointment } from '../appointment/appointment.entity';
 
 @Entity()
 export class Service {

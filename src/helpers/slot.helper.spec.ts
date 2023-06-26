@@ -1,9 +1,9 @@
 import { ServiceHelper } from './../helpers/service.helper';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Service } from './../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 import { SlotHelper } from './slot.helper';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Appointment } from './../appointment/appointment.entity';
+import { Appointment } from '../modules/appointment/appointment.entity';
 import { Repository } from 'typeorm';
 import { ConfiguredBreakHelper } from './configured-break.helper';
 import { PlannedOffHelper } from './planned-off.helper';
@@ -13,9 +13,9 @@ import { ServiceFactory } from './../factories/entities/service.factory';
 import { AppointmentFactory } from './../factories/entities/appointment.factory';
 import * as moment from 'moment';
 import { faker } from '@faker-js/faker';
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { BookableCalender } from '../modules/bookable-calender/bookable-calender.entity';
 import { BookableCalenderFactory } from './../factories/entities/bookable-calender.factory';
-import { AvailableSlot } from './../slot/object-types/available-slot.type';
+import { AvailableSlot } from '../modules/slot/object-types/available-slot.type';
 
 const appointment = factory<Appointment>(AppointmentFactory).make();
 const bookableCalender = factory<BookableCalender>(

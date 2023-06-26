@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PlannedOffHelper } from './planned-off.helper';
-import { Service } from './../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 import * as moment from 'moment';
-import { PlannedOff } from './../planned-off/planned-off.entity';
+import { PlannedOff } from '../modules/planned-off/planned-off.entity';
 import factory from './../factories/factory.helper';
 import { PlannedOffFactory } from './../factories/entities/planned-off.factory';
 import { ServiceFactory } from './../factories/entities/service.factory';

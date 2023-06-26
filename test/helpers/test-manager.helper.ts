@@ -5,7 +5,7 @@ import { useContainer } from 'class-validator';
 import { ValidationPipe } from '@nestjs/common';
 import { runSeeder } from 'typeorm-extension';
 import DatabaseSeeder from '../../database/seeders/database.seeder';
-import { Service } from '../../src/service/service.entity';
+import { Service } from '../../src/modules/service/service.entity';
 import { AppModule } from '../../src/app.module';
 
 export class TestManager {

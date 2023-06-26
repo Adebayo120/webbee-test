@@ -1,13 +1,13 @@
 import * as moment from 'moment';
-import { Appointment } from './../appointment/appointment.entity';
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { Appointment } from '../modules/appointment/appointment.entity';
+import { BookableCalender } from '../modules/bookable-calender/bookable-calender.entity';
 import { BookableCalenderHelper } from './../helpers/bookable-calender.helper';
 import { ConfiguredBreakHelper } from './../helpers/configured-break.helper';
 import { PlannedOffHelper } from './../helpers/planned-off.helper';
-import { Service } from './../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 import { ServiceHelper } from './../helpers/service.helper';
 import { Between, Repository } from 'typeorm';
-import { AvailableSlot } from '../slot/object-types/available-slot.type';
+import { AvailableSlot } from '../modules/slot/object-types/available-slot.type';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 

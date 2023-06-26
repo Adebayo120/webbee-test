@@ -1,9 +1,9 @@
 import { INestApplication } from '@nestjs/common';
 import { TestManager } from './helpers/test-manager.helper';
-import { Slot } from './../src/slot/object-types/slot.type';
+import { Slot } from '../src/modules/slot/object-types/slot.type';
 import * as moment from 'moment';
 import factory from './../src/factories/factory.helper';
-import { ProfileInput } from './../src/appointment/dtos/profile.input';
+import { ProfileInput } from '../src/modules/appointment/dtos/profile.input';
 import { ProfileInputFactory } from './../src/factories/entities/profile-input.factory';
 import { Request } from './helpers/test-request.helper';
 

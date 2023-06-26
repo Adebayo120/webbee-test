@@ -3,12 +3,12 @@ import { SlotResolver } from './slot.resolver';
 import { SlotService } from './slot.service';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Service } from './../service/service.entity';
+import { Service } from '../service/service.entity';
 import { Slot } from './object-types/slot.type';
-import { SlotFactory } from './../factories/entities/slot.factory';
-import factory from './../factories/factory.helper';
+import { SlotFactory } from '../../factories/entities/slot.factory';
+import factory from '../../factories/factory.helper';
 import { GetAvailableSlotsInput } from './dtos/get-available-slots.input';
-import { GetAvailableSlotsInputFactory } from './../factories/entities/get-available-slots-input.factory';
+import { GetAvailableSlotsInputFactory } from '../../factories/entities/get-available-slots-input.factory';
 
 const slot: Slot = factory<Slot>(SlotFactory).make();
 

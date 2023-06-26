@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfiguredBreak } from '../configured-break/configured-break.entity';
-import { Service } from './../service/service.entity';
+import { ConfiguredBreak } from '../modules/configured-break/configured-break.entity';
+import { Service } from '../modules/service/service.entity';
 
 @Injectable()
 export class ConfiguredBreakHelper {

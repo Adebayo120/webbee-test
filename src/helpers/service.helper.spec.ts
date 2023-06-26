@@ -1,4 +1,4 @@
-import { Service } from './../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 import { ServiceHelper } from './service.helper';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as moment from 'moment';

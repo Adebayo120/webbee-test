@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfiguredBreakHelper } from './configured-break.helper';
-import { Service } from './../service/service.entity';
-import { ConfiguredBreak } from './../configured-break/configured-break.entity';
+import { Service } from '../modules/service/service.entity';
+import { ConfiguredBreak } from '../modules/configured-break/configured-break.entity';
 import factory from './../factories/factory.helper';
 import { ConfiguredBreakFactory } from './../factories/entities/configured-break.factory';
 

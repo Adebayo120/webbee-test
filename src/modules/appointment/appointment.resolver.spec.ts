@@ -2,17 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppointmentResolver } from './appointment.resolver';
 import { AppointmentService } from './appointment.service';
 import { Appointment } from './appointment.entity';
-import { AppointmentFactory } from './../factories/entities/appointment.factory';
-import factory from './../factories/factory.helper';
+import { AppointmentFactory } from '../../factories/entities/appointment.factory';
+import factory from '../../factories/factory.helper';
 import { faker } from '@faker-js/faker';
 import * as moment from 'moment';
-import { SlotValidatorsPipe } from '../validators/pipes/slot-validators/slot-validators.pipe';
+import { SlotValidatorsPipe } from '../../validators/pipes/slot-validators/slot-validators.pipe';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Service } from './../service/service.entity';
-import { SlotHelper } from './../helpers/slot.helper';
+import { Service } from '../service/service.entity';
+import { SlotHelper } from '../../helpers/slot.helper';
 import { ProfileInput } from './dtos/profile.input';
-import { ProfileInputFactory } from './../factories/entities/profile-input.factory';
+import { ProfileInputFactory } from '../../factories/entities/profile-input.factory';
 
 const appointment = factory<Appointment>(AppointmentFactory).make();
 

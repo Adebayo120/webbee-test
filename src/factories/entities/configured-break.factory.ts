@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { ConfiguredBreak } from '../../configured-break/configured-break.entity';
+import { ConfiguredBreak } from '../../modules/configured-break/configured-break.entity';
 import { Factory } from '../factory.abstract';
-import { Service } from './../../service/service.entity';
+import { Service } from '../../modules/service/service.entity';
 import { ServiceFactory } from './service.factory';
 import factory from '../factory.helper';
 

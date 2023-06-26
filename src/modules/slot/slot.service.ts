@@ -1,7 +1,7 @@
 import { GetAvailableSlotsInput } from './dtos/get-available-slots.input';
 import { Injectable } from '@nestjs/common';
 import { Slot } from './object-types/slot.type';
-import { SlotHelper } from './../helpers/slot.helper';
+import { SlotHelper } from '../../helpers/slot.helper';
 
 @Injectable()
 export class SlotService {
@@ -12,8 +12,9 @@ export class SlotService {
       .whereBetween(data.startDate, data.endDate)
       .forService(data.service)
       .forAvailableBookableCalenders()
-      .setBookedAppointmentsBetweenDates()
-      .then((slotHelper: SlotHelper) => slotHelper.generateAvailableSlots());
+      .setBookedAppointmentsBetweenDates();
+
+    slotHelper.generateAvailableSlots();
 
     return {
       availableDates: slotHelper.getAvailableDates(),

@@ -1,4 +1,4 @@
-import { AvailableSlot } from './../../slot/object-types/available-slot.type';
+import { AvailableSlot } from '../../modules/slot/object-types/available-slot.type';
 import { Factory } from '../factory.abstract';
 import { faker } from '@faker-js/faker';
 import * as moment from 'moment';

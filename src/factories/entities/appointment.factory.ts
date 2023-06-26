@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { Appointment } from '../../appointment/appointment.entity';
+import { Appointment } from '../../modules/appointment/appointment.entity';
 import { Factory } from '../factory.abstract';
 import * as moment from 'moment';
-import { Service } from './../../service/service.entity';
+import { Service } from '../../modules/service/service.entity';
 import { ServiceFactory } from './service.factory';
 import factory from '../factory.helper';
 

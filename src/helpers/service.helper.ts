@@ -1,7 +1,7 @@
-import { BookableCalender } from './../bookable-calender/bookable-calender.entity';
+import { BookableCalender } from '../modules/bookable-calender/bookable-calender.entity';
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
-import { Service } from '../service/service.entity';
+import { Service } from '../modules/service/service.entity';
 
 @Injectable()
 export class ServiceHelper {
